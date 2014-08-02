@@ -4,8 +4,8 @@
 *
 **/
 
-*, *::before, *::after {
-  box-sizing: border-box;
+* {
+  @include prefixr(box-sizing, border-box);
 }
 
 html, body, button {

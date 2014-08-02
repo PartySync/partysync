@@ -64,13 +64,13 @@
       border: 1px solid;
 
       // demo transition
-      transition: all 100ms linear;
-      transform: translateZ(0); // kick in hardware acceleration
+      -webkit-transition: all 100ms linear;
+      -webkit-transform: translateZ(0); // kick in hardware acceleration
     }
 
     .no-touch a:hover & {
       box-shadow: inset 0px 0px 0px 1px #ffffff;
-      transform: scale(1.1);
+      -webkit-transform: scale(1.1);
     }
   }
 

@@ -1,77 +1,396 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Web Starter Kit</title>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+        <title>You Party</title>
 
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="196x196" href="images/touch/chrome-touch-icon-196x196.png">
+        <!-- Add to homescreen for Chrome on Android -->
+        <meta name="mobile-web-app-capable" content="yes">
 
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
+        <!-- iOS icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/touch/apple-touch-icon-144x144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/touch/apple-touch-icon-114x114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/touch/apple-touch-icon-72x72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="images/touch/apple-touch-icon-57x57-precomposed.png">
 
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#3372DF">
+        <!-- Tile icon for Win8 (144x144 + tile color) -->
+        <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+        <meta name="msapplication-TileColor" content="#3372DF">
 
-    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
-    <!--
-    <link rel="canonical" href="http://www.example.com/">
-    -->
+        <!-- Generic Icon -->
+        <link rel="shortcut icon" href="images/touch/touch-icon-57x57.png">
 
-    <!-- build:css styles/components/main.min.css -->
-    <link rel="stylesheet" href="styles/h5bp.css">
-    <link rel="stylesheet" href="styles/components/components.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-  </head>
-  <body>
-    <header class="app-bar promote-layer">
-      <div class="app-bar-container">
-        <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
-        <h1 class="logo">Web Starter Kit</h1>
-        <section class="app-bar-actions">
-        <!-- Put App Bar Buttons Here -->
+        <!-- SEO: If mobile URL is different from desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+        <!--
+        <link rel="canonical" href="http://www.example.com/">
+        -->
+        
+        <!-- Chrome Add to Homescreen -->
+        <link rel="shortcut icon" sizes="196x196" href="images/touch/touch-icon-196x196.png">
+
+        <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
+        <!--
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="">
+        -->
+
+        <!-- build:css styles/components/main.min.css -->
+        <link rel="stylesheet" href="styles/h5bp.css">
+        <link rel="stylesheet" href="styles/components/components.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <style>
+            @font-face {
+                font-family: 'Fake Hindi'; src: url('SAMARN__.TTF')
+            
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            a:visited {
+                text-decoration: none;
+                color:rgb(36, 96, 219);
+            }
+
+            a .button--primary:visited {
+                color:white;
+            }
+
+
+            .responsive-object {
+              position: relative;
+              padding-bottom: 67.5%;
+              height: 0;
+              margin: 10px 0;
+              overflow: hidden;
+            }
+            .responsive-object iframe,
+              .responsive-object object,
+              .responsive-object embed {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            iframe {
+              width:100%;
+            }
+
+        
+        </style>
+        <!-- endbuild -->
+    </head>
+    <body>
+<!--         <header class="app-bar promote-layer">
+            <div class="app-bar-container">
+                <button class="menu"><img src="images/hamburger.svg"></button>
+                <h1 class="logo" style="font-weight:bold; font-family:'Fake Hindi';">INDIA NEWS</h1>
+
+
+
+                <section class="app-bar-actions">
+                </section>
+            </div>
+        </header> -->
+
+        <nav class="navdrawer-container promote-layer">
+            <h4>YouParty</h4>
+            <ul>
+                <li><a href="#">Today</a></li>
+                <li><a href="/politics">Politics</a></li>
+            </ul>
+        </nav>
+        <br />
+
+        <main>
+           <section class="styleguide__editorial-header">
+            <div>
+                <div class="container">
+                    <h2 id="partyName" style="text-transform:uppercase; font-weight:700;">{PARTY NAME}</h2>
+                    <p class="editorial-header__excerpt g-wide--pull-1">
+                    <center><div class="mainVideo"></div></center><br />
+
+                    <!-- <span class="bannerDate" style="font-weight:bold;"></span><br /><br /> -->
+                    <span class="mainVideoContent">
+                    Loading...
+                    </span> 
+                    </p>
+                    </span>
+                </div>
+            </div>
         </section>
-      </div>
-    </header>
+           
+        </main>
 
-    <nav class="navdrawer-container promote-layer">
-      <h4>Navigation</h4>
-      <ul>
-        <li><a href="#hello">Hello</a></li>
-        <li><a href="#get-started">Get Started</a></li>
-        <li><a href="styleguide/index.html">Style Guide</a></li>
-      </ul>
-    </nav>
 
-    <main>
-      <h1 id="hello">Hello!</h1>
-      <p>Welcome to Web Starter Kit.</p>
 
-      <h2 id="get-started">Get Started.</h2>
-      <p>Read how to <a href="http://developers.google.com/web/starter-kit">Get Started</a> or check out the <a href="styleguide/index.html">Style Guide</a>.</p>
-    </main>
 
-    <!-- build:js scripts/main.min.js -->
-    <script src="scripts/main.js"></script>
-    <!-- endbuild -->
+<div style="padding: 20px; background-color:rgb(240, 240, 240);">
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-XXXXX-X');
-      ga('send', 'pageview');
-    </script>
-    <!-- Built with love using Web Starter Kit -->
-  </body>
+        <section class="styleguide__featured-section">
+    <div class="featured-section">
+        <div class="container-medium">
+            <ul class="featured-list" style="padding: 40px 0px 30px 0px;">
+                <li class="featured-list__item clear">
+                    <div class="container-small">
+                        <div class="featured-list__content g--half">
+                            <h3><a href="#" class="oneLink"><span class="oneTitle">Loading...</span></a></h3><br />
+                            <span class="oneDate" style="font-weight:bold;"></span>
+                            <p class="oneContent"></p>
+                            <a href="#" class="cta--primary oneLink">Read more...</a>
+                        </div>
+                        <div class="featured-list__img-wrapper g--half g--last">
+                            <div class="featured-list__img">
+                                <img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" alt="image exemple" id="oneImg" style="border-radius: 3px; width:100%;">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="featured-list__item clear">
+                    <div class="container-small">
+                        <div class="featured-list__content g--half">
+                            <h3><a href="#" class="twoLink"><span class="twoTitle">Loading...</span></a></h3><br />
+                            <span class="twoDate" style="font-weight:bold;"></span>
+                            <p class="twoContent"></p>
+                            <a href="#" class="cta--primary twoLink">Read more...</a>
+                        </div>
+                        <div class="featured-list__img-wrapper g--half g--last">
+                            <div class="featured-list__img">
+                                <img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" alt="image exemple" id="twoImg" style="border-radius:3px; width:100%;">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- <section class="styleguide__featured-section">
+    <div class="featured-section">
+        <div class="container-medium">
+        <ul class="featured-list" style="padding: 0 20px 0 20px;">
+
+		<div class="g--third" style="background-color:white; margin-top: 40px; position:relative;">
+		<img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" id="threeImg" style="width:100%;">
+		<div style="padding: 20px;">
+			<a href="#" class="threeLink"><span class="threeTitle">Loading...</span></a><br />
+			<span class="threeDate" style="font-weight:bold;">Date</span><br />
+			<p class="threeContent" align="justify">Loading...</p><br /><br />
+			
+		</div>
+		<a href="#" class="cta--primary threeLink" style="position:absolute; bottom:0; padding:20px;">Read more...</a>
+			
+		</div>
+		<div class="g--third" style="background-color:white; height:800px; margin-top: 40px; position:relative;">
+		<img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" id="fourImg" style="width:100%;">
+		<div style="padding: 20px; position:relative;">
+			<a href="#" class="fourLink"><span class="fourTitle">Loading...</span></a><br />
+			<span class="fourDate" style="font-weight:bold;">Date</span><br />
+			<p class="fourContent" align="justify">Loading...</p><br /><br />
+			
+		</div>
+		<a href="#" class="cta--primary fourLink" style="position:absolute; bottom:0; padding:20px;">Read more...</a>
+			
+		</div>
+		<div class="g--third g--last" style="background-color:white; height:800px; margin-top:40px; position:relative;">
+		<img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" id="fiveImg" style="width:100%;">
+		<div style="padding: 20px; position:relative;">
+			<a href="#" class="fiveLink"><span class="fiveTitle">Loading...</span></a><br />
+			<span class="fiveDate" style="font-weight:bold;">Date</span><br />
+			<p class="fiveContent" align="justify">Loading...</p><br /><br />
+			
+		</div>
+		<a href="#" class="cta--primary fiveLink" style="position:absolute; bottom:0; padding:20px;">Read more...</a>
+			
+		</div>
+		</ul>
+		</div>
+	</div>
+</section> -->
+
+
+
+
+
+
+
+
+<section class="styleguide__guides-section" style="margin-top: -85px;">
+    <div class="guides-section">
+
+
+    	<ul class="guides-list container-medium">
+            <li class="guides-list__item g--third">
+                <div class="primary-content">
+                    <h3><a href="#" title="Go to Multi-Device Layouts" class="themed threeLink"><span class="threeTitle">Loading...</span></a></h3><br />
+                    <img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" id="threeImg" style="width:100%;"><br /><br />
+                    <span class="threeDate" style="font-weight:bold;"></span>
+                    <p class="threeContent"></p>
+                </div>
+                <div class="secondary-content">
+                    <span class="icon-circle themed--background"><i class="icon icon-lessons"></i></span>
+                    <ol class="list-links list-links--secondary">
+                        <li><a href="#" class="button--primary threeLink"><span style="color:white;">Read more...</span></a></li>
+                    </ol>
+                </div>
+            </li>
+            <li class="guides-list__item g--third">
+                <div class="primary-content">
+                    <h3><a href="#" title="Go to Multi-Device Layouts" class="themed fourLink"><span class="fourTitle">Loading...</span></a></h3><br />
+                    <img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" id="fourImg" style="width:100%;"><br /><br />
+                    <span class="fourDate" style="font-weight:bold;"></span>
+                    <p class="fourContent"></p>
+                </div>
+                <div class="secondary-content">
+                    <span class="icon-circle themed--background"><i class="icon icon-lessons"></i></span>
+                    <ol class="list-links list-links--secondary">
+                        <li><a href="#" class="button--primary fourLink"><span style="color:white;">Read more...</span></a></li>
+                    </ol>
+                </div>
+            </li>
+            <li class="guides-list__item g--third g--last">
+                <div class="primary-content">
+                    <h3><a href="#" title="Go to Images, Audio and Video" class="themed fiveLink"><span class="fiveTitle">Loading...</span></a></h3><br />
+                    <img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" id="fiveImg" style="width:100%;"><br /><br />
+                    <span class="fiveDate" style="font-weight:bold;"></span>
+                    <p class="fiveContent"></p>
+                </div>
+                <div class="secondary-content">
+                    <span class="icon-circle themed--background"><i class="icon icon-lessons"></i></span>
+                    <ol class="list-links list-links--secondary">
+                        <li><a href="#" class="button--primary fiveLink"><span style="color:white;">Read more...</span></a></li>
+                    </ol>
+                </div>
+            </li>
+      
+        </ul>
+
+
+
+
+
+
+
+
+        <ul class="guides-list container-medium">
+            <li class="guides-list__item g--half">
+                <div class="primary-content">
+                    <h3 class="xlarge"><a href="#" title="Go to Multi-Device Layouts" class="themed sixLink"><span class="sixTitle">Loading...</span></a></h3><br />
+                    <img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" id="sixImg" style="width:100%;"><br /><br />
+                    <span class="sixDate" style="font-weight:bold;"></span>
+                    <p class="sixContent"></p>
+                </div>
+                <div class="secondary-content">
+                    <span class="icon-circle themed--background"><i class="icon icon-lessons"></i></span>
+                    <ol class="list-links list-links--secondary">
+                        <li><a href="#" class="button--primary sixLink"><span style="color:white;">Read more...</span></a></li>
+                    </ol>
+                </div>
+            </li>
+            <li class="guides-list__item g--half g--last">
+                <div class="primary-content">
+                    <h3 class="xlarge"><a href="#" title="Go to Images, Audio and Video" class="themed sevenLink"><span class="sevenTitle">Loading...</span></a></h3><br />
+                    <img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" id="sevenImg" style="width:100%;"><br /><br />
+                    <span class="sevenDate" style="font-weight:bold;"></span>
+                    <p class="sevenContent"></p>
+                </div>
+                <div class="secondary-content">
+                    <span class="icon-circle themed--background"><i class="icon icon-lessons"></i></span>
+                    <ol class="list-links list-links--secondary">
+                        <li><a href="#" class="button--primary sevenLink"><span style="color:white;">Read more...</span></a></li>
+                    </ol>
+                </div>
+            </li>
+      
+        </ul>
+
+
+    </div>
+
+
+
+
+<br />
+<!-- <div style="width: 100%;"> -->
+<!-- </div> -->
+<br />
+
+
+
+
+    
+</section>
+</div>
+
+
+<div class="footer" style="padding: 40px;">
+<center>
+Built at Y-Combinator Hackathon.
+</center>
+</div>
+
+
+
+
+
+
+
+        <!-- build:js scripts/main.min.js -->
+        <script src="scripts/main.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="http://cdn.embed.ly/jquery.embedly-3.1.1.min.js" type="text/javascript"></script>
+
+        <script>
+        function parseVideo(url, firstVideo) {
+          var videoData = {};
+          $.getJSON('http://api.embed.ly/1/oembed?url='+ url +'&key=ffd2e1e42dc24e5692dddf0136272061', function (data) {
+            $(".mainVideo").html(data.html);
+            $(".mainVideoContent").html(data.description);
+          }); 
+        }
+
+        parseVideo('https://www.youtube.com/watch?v=3ahoqR6OGdM', true);
+
+
+        function grabVideoThumbnail(url) {
+          var videoExtra = url.substring(0, 32);
+          // alert(videoID);
+          var id = url.replace(videoExtra, '');
+
+          var src = 'http://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+
+          return src;
+
+        }
+
+
+        var 
+
+
+        // grabVideoThumbnail('https://www.youtube.com/watch?v=3ahoqR6OGdM');
+
+        </script>
+        <!-- endbuild -->
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-167816-1');ga('send','pageview');
+        </script>
+        <!-- Built with love using Web Starter Kit -->
+    </body>
 </html>
