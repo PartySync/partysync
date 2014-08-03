@@ -114,7 +114,7 @@
                 <div class="container">
                     <h2 id="partyName" style="text-transform:uppercase; font-weight:700;">{PARTY NAME}</h2>
                     <p class="editorial-header__excerpt g-wide--pull-1">
-                    <center><div class="mainVideo"></div></center><br />
+                    <center><div id="mainVideo"></div></center><br />
 
                     <!-- <span class="bannerDate" style="font-weight:bold;"></span><br /><br /> -->
                     <span class="mainVideoContent">
@@ -136,37 +136,8 @@
         <section class="styleguide__featured-section">
     <div class="featured-section">
         <div class="container-medium">
-            <ul class="featured-list" style="padding: 40px 0px 30px 0px;">
-                <li class="featured-list__item clear">
-                    <div class="container-small">
-                        <div class="featured-list__content g--half">
-                            <h3><a href="#" class="oneLink"><span class="oneTitle">Loading...</span></a></h3><br />
-                            <span class="oneDate" style="font-weight:bold;"></span>
-                            <p class="oneContent"></p>
-                            <a href="#" class="cta--primary oneLink">Read more...</a>
-                        </div>
-                        <div class="featured-list__img-wrapper g--half g--last">
-                            <div class="featured-list__img">
-                                <img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" alt="image exemple" id="oneImg" style="border-radius: 3px; width:100%;">
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="featured-list__item clear">
-                    <div class="container-small">
-                        <div class="featured-list__content g--half">
-                            <h3><a href="#" class="twoLink"><span class="twoTitle">Loading...</span></a></h3><br />
-                            <span class="twoDate" style="font-weight:bold;"></span>
-                            <p class="twoContent"></p>
-                            <a href="#" class="cta--primary twoLink">Read more...</a>
-                        </div>
-                        <div class="featured-list__img-wrapper g--half g--last">
-                            <div class="featured-list__img">
-                                <img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/08/india-flag.jpg" alt="image exemple" id="twoImg" style="border-radius:3px; width:100%;">
-                            </div>
-                        </div>
-                    </div>
-                </li>
+            <ul class="featured-list upcomingList" style="padding: 40px 0px 30px 0px;">
+                
             </ul>
         </div>
     </div>
@@ -207,26 +178,166 @@ Built at Y-Combinator Hackathon.
 
         <!-- build:js scripts/main.min.js -->
         <script src="scripts/main.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="scripts/jquery.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script src="http://cdn.embed.ly/jquery.embedly-3.1.1.min.js" type="text/javascript"></script>
+        <script src="http://www.youtube.com/player_api"></script>
+        <!-- // <script type="text/javascript" src="//cdn.embed.ly/player-0.0.10.min.js"></script> -->
 
         <script>
-        function parseVideo(url, firstVideo) {
-          var videoData = {};
-          $.getJSON('http://api.embed.ly/1/oembed?url='+ url +'&key=ffd2e1e42dc24e5692dddf0136272061', function (data) {
-            $(".mainVideo").html(data.html);
-            $(".mainVideoContent").html(data.description);
-          }); 
+        var videos = ['https://www.youtube.com/watch?v=0Bmhjf0rKe8', 'https://www.youtube.com/watch?v=3ahoqR6OGdM', 'https://www.youtube.com/watch?v=hL5nTprjOZQ', 'https://www.youtube.com/watch?v=--MSSAiEcT0', 'https://www.youtube.com/watch?v=98BIu9dpwHU', 'https://www.youtube.com/watch?v=3ahoqR6OGdM'];
+        var history = [];
+
+        // var player = new playerjs.Player('iframe');
+
+
+        function parseVideo(testVideos) {
+          $(".upcomingList").html("");
+
+          for (var i = 0; i < testVideos.length; i++) {
+            if (i == 0) {
+              $.ajax({
+                url: '//api.embed.ly/1/oembed?url='+ testVideos[i] +'&key=ffd2e1e42dc24e5692dddf0136272061',
+                dataType: 'json',
+                async: false,
+                success: function(data) {
+
+
+                  // $(".mainVideo").html(data.html);
+                  $(".mainVideoContent").html(data.description);
+
+                }
+              });
+
+              // $.getJSON('//api.embed.ly/1/oembed?url='+ testVideos[i] +'&key=ffd2e1e42dc24e5692dddf0136272061', function (data) {
+        
+              //     $(".mainVideo").html(data.html);
+              //     $(".mainVideoContent").html(data.description);
+                
+              // }); 
+
+            } else {
+
+              $.ajax({
+                url: '//api.embed.ly/1/oembed?url='+ testVideos[i] +'&key=ffd2e1e42dc24e5692dddf0136272061',
+                dataType: 'json',
+                async: false,
+                success: function(data) {
+                  var img = grabVideoThumbnail(data.url);
+
+                  $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ data.title +'</span></a></h3><p class="oneContent">' + data.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
+                }
+              });
+
+              // $.getJSON('//api.embed.ly/1/oembed?url='+ testVideos[i] +'&key=ffd2e1e42dc24e5692dddf0136272061', function (data) {
+
+              //   // $(".upcomingList").append("<li>yo</li>");
+              //     // alert(JSON.stringify(data));
+              //     // alert(data.original_url);
+                  
+              //   }); 
+            }
+          }
+          
         }
 
-        // parseVideo('https://www.youtube.com/watch?v=3ahoqR6OGdM', true);
+
+      
+        // create youtube player
+        var player;
+
+        // onYouTubePlayerAPIReady(extractParameters(videos[0])["v"]);
+
+        function onYouTubePlayerAPIReady() {
+            player = new YT.Player('mainVideo', {
+              height: '390',
+              width: '640',
+              videoId: extractParameters(videos[0])["v"],
+              events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+              }
+            });
+        }
+
+        // autoplay video
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // when video ends
+        function onPlayerStateChange(event) {    
+        // alert(eventData.);    
+            if(event.data === 0) {
+              // if (document.fullScreen == true) {
+              //     document.requestFullScreen();
+              // }
+
+                // alert('done');
+                // alert(player.videoId);
+                // alert(eventData.target.videoUrl);
+                videos.shift();
+                // alert(eventData.target.videoID);
+
+                parseVideo(videos);
+
+
+                player.loadVideoById(extractParameters(videos[0])["v"], 5, "large")
+                  // alert(videos);
+
+                // event.target.stopVideo();
+
+              //   player = new YT.Player('mainVideo', {
+              //   height: '390',
+              //   width: '640',
+              //   videoId: extractParameters(videos[0])["v"],
+              //   events: {
+              //     'onReady': onPlayerReady,
+              //     'onStateChange': onPlayerStateChange
+              //   }
+              // });
+
+
+
+            }
+        }
+
+
+
+
+        // 
+          // }
+
+
+        // }
+
+        parseVideo(videos);
+        // alert(parseVideo('https://www.youtube.com/watch?v=3ahoqR6OGdM', false));
+
+        function extractParameters(url)
+        {
+          var query = url.match(/.*\?(.*)/)[1];
+          var assignments = query.split("&")
+          var pair, parameters = {};
+          for (var ii = 0; ii < assignments.length; ii++)
+          { 
+              pair = assignments[ii].split("=");
+              parameters[pair[0]] = pair[1];
+          }
+          return parameters;
+        }
+
+        
 
 
         function grabVideoThumbnail(url) {
-          var videoExtra = url.substring(0, 32);
+          // var videoExtra = url.substring(0, 33);
           // alert(videoID);
-          var id = url.replace(videoExtra, '');
+          // url = "http://www.youtube.com/watch?v=gkU&list=UUa3Q&feature=plcp";
+          video_parameters = extractParameters(url);
+
+          var id = video_parameters["v"];
+          // alert(url + ", " + id);
 
           var src = 'http://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
 
@@ -235,8 +346,8 @@ Built at Y-Combinator Hackathon.
         }
 
 
-        var testVideos = ['https://www.youtube.com/watch?v=3ahoqR6OGdM', 'https://www.youtube.com/watch?v=hL5nTprjOZQ', 'https://www.youtube.com/watch?v=--MSSAiEcT0', 'https://www.youtube.com/watch?v=98BIu9dpwHU'];
-
+        
+  
 
 
         </script>
