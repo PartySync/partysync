@@ -103,6 +103,12 @@
 
             }
 
+            .successBox {
+              color:green;
+              font-weight: 700;
+
+            }
+
         
         </style>
         <!-- endbuild -->
@@ -134,7 +140,11 @@
             <div>
                 <div class="container">
                     <h2 id="partyName" style="text-transform:uppercase; font-weight:700;">{PARTY NAME}</h2>
-                    <input type="text" class="addBar" placeholder="Add new videos..."/>
+                    <input type="text" class="addBar" placeholder="Type any YouTube URL (hit enter/return to add it)"/>
+                    <div class="successBox">Successfully added to queue.</div>
+                    <!-- <div id="searchResults">
+
+                    </div> -->
                     <p class="editorial-header__excerpt g-wide--pull-1">
                     <center><div id="mainVideo"></div></center>
 
@@ -210,9 +220,11 @@ Built at Y-Combinator Hackathon.
         <script>
         // var room = prompt("Party name?");
 
-
+        $(".successBox").hide();
 
         var fb = new Firebase('https://youparty.firebaseio.com/playlists/YCHacks'); //+ //room.toLowerCase());
+
+        var currentTime = 0;
 
         //fb.child("videos").on("child_added", function (s) {console.log(s.val())})
 
@@ -255,6 +267,8 @@ Built at Y-Combinator Hackathon.
                   }
             });
         }
+ 
+
 
 
           // console.log(JSON.stringify(data.val()));
@@ -395,7 +409,7 @@ Built at Y-Combinator Hackathon.
         // autoplay video
         function onPlayerReady(event) {
 
-            setTimeout(function() { player.loadVideoById(extractParameters(videos[0])["v"], 0, "large");}, 10);
+            setTimeout(function() { player.loadVideoById(extractParameters(videos[0])["v"], Math.round(Number(currentTime)), "large");}, 200);
             event.target.playVideo();
         }
 
@@ -456,7 +470,69 @@ Built at Y-Combinator Hackathon.
         }
 
 
+        function searchVideo(query) {
+          $.getJSON('http://gdata.youtube.com/feeds/api/videos?q='+ query +'&max-results=50&alt=json', function (data) {
+
+            for (var i = 0; i < 5; i++) {
+              var title = data.feed.entry[i].title.$t;
+
+              var url = data.feed.entry[i].link[i].href;
+               
+              var id = extractParameters(url)["v"];
+
+              var thumb = 'http://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+
+
+            }
+            
+            
+          });
+        }
+
+        // $(".addBar").focus(function() {
+          // alert("Yo");
+        // });
+
+        $(document).keydown(function (evt) {
+          if (evt.which == 13) {
+            if (document.querySelector(".addBar").value.length != 0) { 
+              // alert("Yo");
+              fb.child("videos").push({'url': extractParameters(document.querySelector(".addBar").value)["v"]})
+              document.querySelector(".addBar").value = "";
+              $(".successBox").show();
+              setTimeout(function() {$(".successBox").fadeOut();}, 100);
+            }
+          }
+        });
+
+
+
+
         
+
+        // push current time
+
+        
+        fb.on("value", function (data) {
+          currentTime = data.val().currentVidTime;
+
+          if (currentTime == 0) {
+      
+       
+            setInterval(function() {
+            // if (currentTime == 0) {
+                fb.child("currentVidTime").set(player.getCurrentTime());
+              // }
+              // console.log(Math.round(currentTime));
+            }, 100);
+
+            fb.child("currentVidTime").onDisconnect().set(0);
+          }
+        });
+
+        // console.log('')
+
+
   
 
 
