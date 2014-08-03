@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
         <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-        <title>You Party: {fb_name}</title>
+        <title>You Party</title>
 
         <!-- Add to homescreen for Chrome on Android -->
         <meta name="mobile-web-app-capable" content="yes">
@@ -218,13 +218,18 @@ Built at Y-Combinator Hackathon.
         <!-- // <script type="text/javascript" src="//cdn.embed.ly/player-0.0.10.min.js"></script> -->
 
         <script>
-        // var room = prompt("Party name?");
+        var url = document.URL;
+        var room = url.replace('http://4e72255c.ngrok.com/', '');
+
+        $("#partyName").html(room);
 
         $(".successBox").hide();
 
-        var fb = new Firebase('https://youparty.firebaseio.com/playlists/YCHacks'); //+ //room.toLowerCase());
+        var fb = new Firebase('https://youparty.firebaseio.com/playlists/'+ room); //+ //room.toLowerCase());
 
         var currentTime = 0;
+        var currentVid = 0;
+        var numShifted = 0;
 
         //fb.child("videos").on("child_added", function (s) {console.log(s.val())})
 
@@ -235,7 +240,15 @@ Built at Y-Combinator Hackathon.
         var firstVideo = false;
 
         fb.child("videos").on("child_added", function (data) {
-          videos.push('https://www.youtube.com/watch?v=' + data.val().url);
+          // if (numShifted == 0) 
+          // {
+            videos.push('https://www.youtube.com/watch?v=' + data.val().url);
+          // } else {
+          //   for (var i = 0; )
+          // }
+          
+
+
           if (firstVideo === false) {
             firstVideo = true;
 
@@ -268,6 +281,9 @@ Built at Y-Combinator Hackathon.
             });
         }
  
+        fb.child("videoHistory").on("value", function (data) {
+          videoHistory.push(data.val().url);
+        });
 
 
 
@@ -368,6 +384,9 @@ Built at Y-Combinator Hackathon.
                           videoHistory.push(videos[0]);
                           videos.shift();
 
+
+                          // fb.child("videos").limit(1).remove();
+
                           if (videos.length == 0) {
                             videos = videoHistory;
                             videoHistory = [];
@@ -393,7 +412,20 @@ Built at Y-Combinator Hackathon.
                         }
 
 
+                        $.ajax({
+                          url: '//api.embed.ly/1/oembed?url='+ videos[0] +'&key=422cb5607e3d4623949d4360ade230c9',
+                          dataType: 'json',
+                          async: false,
+                          success: function(data) {
 
+
+                            // $(".mainVideo").html(data.html);
+                            $(".mainVideoContent").html(data.description);
+
+                          }
+                        });
+
+                        // console.log(currentVid);
                         player.loadVideoById(extractParameters(videos[0])["v"], 0, "large");
 
                     }
@@ -409,7 +441,12 @@ Built at Y-Combinator Hackathon.
         // autoplay video
         function onPlayerReady(event) {
 
-            setTimeout(function() { player.loadVideoById(extractParameters(videos[0])["v"], Math.round(Number(currentTime)), "large");}, 200);
+            if (currentVid == 0) {
+              setTimeout(function() { player.loadVideoById(extractParameters(videos[0])["v"], Math.round(Number(currentTime)), "large");}, 200);
+            } else {
+              setTimeout(function() { player.loadVideoById(currentVid, Math.round(Number(currentTime)), "large");}, 200);
+            }
+
             event.target.playVideo();
         }
 
@@ -419,6 +456,7 @@ Built at Y-Combinator Hackathon.
             if(event.data === 0) {
 
                 videos.shift();
+
                 parseVideo(videos);
 
                 player.loadVideoById(extractParameters(videos[0])["v"], 5, "large")
@@ -529,6 +567,80 @@ Built at Y-Combinator Hackathon.
             fb.child("currentVidTime").onDisconnect().set(0);
           }
         });
+
+
+        fb.on("value", function (data) {
+          currentVid = data.val().currentVid;
+
+          if (currentVid == 0) {
+      
+       
+            setInterval(function() {
+            // if (currentTime == 0) {
+                fb.child("currentVid").set(extractParameters(player.getVideoUrl())["v"]);
+              // }
+              // console.log(Math.round(currentTime));
+            }, 100);
+
+            fb.child("currentVid").onDisconnect().set(0);
+          }
+        });
+
+
+        fb.on("value", function (data) {
+          numShifted = data.val().numShifted;
+
+          console.log(videoHistory.length);
+          console.log("Yo");
+          console.log(numShifted);
+
+          if (numShifted == null || numShifted == 0) {
+      
+       
+            setInterval(function() {
+            // if (currentTime == 0) {
+
+                fb.child("numShifted").set(Number(videoHistory.length));
+              // }
+              // console.log(Math.round(currentTime));
+            }, 100);
+
+            fb.child("numShifted").onDisconnect().set(0);
+          }
+       
+
+
+       });
+
+
+        console.log(numShifted);
+        for (var i = 0; i < numShifted; i++) {
+
+          console.log(videos.length);
+          videos.shift();
+          console.log("shifted...");
+          console.log(videos.length);
+          // parseVideo(videos);
+
+          // parseVideo(videos);
+
+          $(".upcomingList").html("");
+
+          for (var j = 1; j < videos.length; j++) {
+            $.ajax({
+                  url: '//api.embed.ly/1/oembed?url='+ videos[j] +'&key=422cb5607e3d4623949d4360ade230c9',
+                  dataType: 'json',
+                  async: false,
+                  success: function(s) {
+                    var img = grabVideoThumbnail(s.url);
+
+                    $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ s.title +'</span></a></h3><p class="oneContent">' + s.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
+                  }
+            });
+          }
+
+        }
+
 
         // console.log('')
 

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
         <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-        <title>You Party: {fb_name}</title>
+        <title>You Party</title>
 
         <!-- Add to homescreen for Chrome on Android -->
         <meta name="mobile-web-app-capable" content="yes">
@@ -218,11 +218,11 @@ Built at Y-Combinator Hackathon.
         <!-- // <script type="text/javascript" src="//cdn.embed.ly/player-0.0.10.min.js"></script> -->
 
         <script>
-        // var room = prompt("Party name?");
+        var room = document.URL;;
 
         $(".successBox").hide();
 
-        var fb = new Firebase('https://youparty.firebaseio.com/playlists/YCHacks'); //+ //room.toLowerCase());
+        var fb = new Firebase('https://youparty.firebaseio.com/playlists/' + room); //+ //room.toLowerCase());
 
         var currentTime = 0;
 
