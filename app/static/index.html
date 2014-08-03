@@ -129,8 +129,8 @@
         <nav class="navdrawer-container promote-layer">
             <h4>YouParty</h4>
             <ul>
-                <li><a href="#">Today</a></li>
-                <li><a href="/politics">Politics</a></li>
+                <li><a href="#"><b>PartySync</b></a></li>
+                <!-- <li></li> -->
             </ul>
         </nav>
         <br />
@@ -229,7 +229,7 @@ Built at Y-Combinator Hackathon.
 
         var currentTime = 0;
         var currentVid = 0;
-        var numShifted = 0;
+        var numShifted;
 
         //fb.child("videos").on("child_added", function (s) {console.log(s.val())})
 
@@ -239,64 +239,77 @@ Built at Y-Combinator Hackathon.
 
         var firstVideo = false;
 
-        fb.child("videos").on("child_added", function (data) {
+        fb.child("videos").on("value", function (data) {
+            videos = [];
+
+            $(".upcomingList").html("");
+            // videos.push(data.val().name)
+            var i = 0;
+
+            data.forEach(function (a) {
+              console.log(a.val().url);
+              videos.push('https://www.youtube.com/watch?v=' + a.val().url); 
+
+
+              
+
+                
+                if (firstVideo === false) {
+                    firstVideo = true;
+
+                    $.ajax({
+                        url: '//api.embed.ly/1/oembed?url=https://www.youtube.com/watch?v='+ a.val().url +'&key=422cb5607e3d4623949d4360ade230c9',
+                        dataType: 'json',
+                        async: false,
+                        success: function(s) {
+
+
+                          // $(".mainVideo").html(data.html);
+                          $(".mainVideoContent").html(s.description);
+
+                        }
+                      });
+
+                  
+
+
+
+
+
+
+                } else {
+
+                  // $(".upcomingList").html("");
+                  i++;
+                  if (i > 1) {
+
+                  $.ajax({
+                        url: '//api.embed.ly/1/oembed?url=https://www.youtube.com/watch?v='+ a.val().url +'&key=422cb5607e3d4623949d4360ade230c9',
+                        dataType: 'json',
+                        async: false,
+                        success: function(s) {
+                          var img = grabVideoThumbnail(s.url);
+
+                          $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ s.title +'</span></a></h3><p class="oneContent">' + s.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
+                        }
+                  });
+              }
+            }
+        });
+
+        });
+
+
+        fb.child("videoHistory").on("value", function (data) {
           // if (numShifted == 0) 
           // {
-            videos.push('https://www.youtube.com/watch?v=' + data.val().url);
-          // } else {
-          //   for (var i = 0; )
-          // }
-          
+            // videos.push(data.val().name)
+            videoHistory = [];
+            data.forEach(function (a) {
+              videoHistory.push('https://www.youtube.com/watch?v=' + a.val().url); 
 
-
-          if (firstVideo === false) {
-            firstVideo = true;
-
-            $.ajax({
-                url: '//api.embed.ly/1/oembed?url=https://www.youtube.com/watch?v='+ data.val().url +'&key=422cb5607e3d4623949d4360ade230c9',
-                dataType: 'json',
-                async: false,
-                success: function(s) {
-
-
-                  // $(".mainVideo").html(data.html);
-                  $(".mainVideoContent").html(s.description);
-
-                }
-              });
-
-
-
-          } else {
-
-            $.ajax({
-                  url: '//api.embed.ly/1/oembed?url=https://www.youtube.com/watch?v='+ data.val().url +'&key=422cb5607e3d4623949d4360ade230c9',
-                  dataType: 'json',
-                  async: false,
-                  success: function(s) {
-                    var img = grabVideoThumbnail(s.url);
-
-                    $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ s.title +'</span></a></h3><p class="oneContent">' + s.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
-                  }
             });
-        }
- 
-        fb.child("videoHistory").on("value", function (data) {
-          videoHistory.push(data.val().url);
-        });
-
-
-
-          // console.log(JSON.stringify(data.val()));
-          // console.log(videos);
-          
-
-          // onYouTubePlayer();
-
-          // onYouTubePlayerAPIReady();
-
-
-        });
+          });
 
         // fb.child("videos").on("value", function (data) {
           // parseVideo(videos);
@@ -376,57 +389,98 @@ Built at Y-Combinator Hackathon.
                      
                     // }
 
-                    if(event.data === 0) {
+
+
+                    if (event.data === 0) {
                         // alert(typeof videos);
                         
 
                         if (videos.length != 0) {
                           videoHistory.push(videos[0]);
+
+                          var vHistory2 = videoHistory.slice(0);
+                          fb.child("videoHistory").remove(function () {
+                            // console.log(videoHistory);
+                            vHistory2.forEach(function (b) { if (b) { 
+                              fb.child("videoHistory").push().set({"url": b});
+
+                            }});
+                            // player.loadVideoById(extractParameters(video2[0])["v"], 0, "large");
+                          });
+                          
+
+
                           videos.shift();
+                          var video2 = videos.slice(0);
+                          fb.child("videos").remove(function () {
+                            video2.forEach(function (a) {  if (extractParameters(a)["v"]) { 
+                              fb.child("videos").push().set({"url": extractParameters(a)["v"]}); 
+                            }});
+
+                            player.loadVideoById(extractParameters(video2[0])["v"], 0, "large");
+
+                          });
+                          // $(".upcomingList").html("");
+                          
+                          // numShifted++;
 
 
                           // fb.child("videos").limit(1).remove();
 
-                          if (videos.length == 0) {
-                            videos = videoHistory;
-                            videoHistory = [];
+                          // if (videos.length == 0) {
+                          //   console.log("YO");
+                          //   // var 
+
+                          //   videos = videoHistory;
+                          //   fb.child("videos").remove(function () {
+
+                          //     videoHistory.forEach(function (b) { if (extractParameters(b)["v"]) { fb.child("videos").push().set({"url": extractParameters(b)["v"]}); }});
+                          //     videoHistory = [];
+                          //     // fb.child("videoHistory").remove();
+                          //   });
+                            // $(".upcomingList").html("");
+                            
+
+                            
+
+
                             // alert(videos);
-                          }
+                          // }
                         }
                       
                         
                         // parseVideo(videos);
-                        $(".upcomingList").html("");
+                        // $(".upcomingList").html("");
 
-                        for (var i = 1; i < videos.length; i++) {
-                          $.ajax({
-                                url: '//api.embed.ly/1/oembed?url='+ videos[i] +'&key=422cb5607e3d4623949d4360ade230c9',
-                                dataType: 'json',
-                                async: false,
-                                success: function(s) {
-                                  var img = grabVideoThumbnail(s.url);
+                        // for (var i = 1; i < videos.length; i++) {
+                        //   $.ajax({
+                        //         url: '//api.embed.ly/1/oembed?url='+ videos[i] +'&key=422cb5607e3d4623949d4360ade230c9',
+                        //         dataType: 'json',
+                        //         async: false,
+                        //         success: function(s) {
+                        //           var img = grabVideoThumbnail(s.url);
 
-                                  $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ s.title +'</span></a></h3><p class="oneContent">' + s.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
-                                }
-                          });
-                        }
-
-
-                        $.ajax({
-                          url: '//api.embed.ly/1/oembed?url='+ videos[0] +'&key=422cb5607e3d4623949d4360ade230c9',
-                          dataType: 'json',
-                          async: false,
-                          success: function(data) {
+                        //           $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ s.title +'</span></a></h3><p class="oneContent">' + s.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
+                        //         }
+                        //   });
+                        // }
 
 
-                            // $(".mainVideo").html(data.html);
-                            $(".mainVideoContent").html(data.description);
+                        // $.ajax({
+                        //   url: '//api.embed.ly/1/oembed?url='+ videos[0] +'&key=422cb5607e3d4623949d4360ade230c9',
+                        //   dataType: 'json',
+                        //   async: false,
+                        //   success: function(data) {
 
-                          }
-                        });
+
+                        //     // $(".mainVideo").html(data.html);
+                        //     $(".mainVideoContent").html(data.description);
+
+                        //   }
+                        // });
 
                         // console.log(currentVid);
-                        player.loadVideoById(extractParameters(videos[0])["v"], 0, "large");
+                        
 
                     }
                 }
@@ -435,17 +489,19 @@ Built at Y-Combinator Hackathon.
 
               }
             });
-        }
+        }  
 
 
         // autoplay video
         function onPlayerReady(event) {
 
-            if (currentVid == 0) {
-              setTimeout(function() { player.loadVideoById(extractParameters(videos[0])["v"], Math.round(Number(currentTime)), "large");}, 200);
-            } else {
-              setTimeout(function() { player.loadVideoById(currentVid, Math.round(Number(currentTime)), "large");}, 200);
-            }
+            // if (currentVid == 0) {
+
+
+              setTimeout(function() { player.loadVideoById(extractParameters(videos[0])["v"], Math.round(Number(currentTime)), "large");}, 500);
+            // } else {
+              // setTimeout(function() { player.loadVideoById(currentVid, Math.round(Number(currentTime)), "large");}, 500);
+            // }
 
             event.target.playVideo();
         }
@@ -569,6 +625,7 @@ Built at Y-Combinator Hackathon.
         });
 
 
+
         fb.on("value", function (data) {
           currentVid = data.val().currentVid;
 
@@ -587,60 +644,93 @@ Built at Y-Combinator Hackathon.
         });
 
 
-        fb.on("value", function (data) {
-          numShifted = data.val().numShifted;
+       //  fb.on("value", function (data) {
+       //    if (data.val().numShifted > numShifted) {
+       //      numShifted = data.val().numShifted;
 
-          console.log(videoHistory.length);
-          console.log("Yo");
-          console.log(numShifted);
+       //       console.log(numShifted);
+       //        for (var i = 0; i < numShifted; i++) {
 
-          if (numShifted == null || numShifted == 0) {
+       //          console.log(videos.length);
+       //          videos.shift();
+       //          console.log("shifted...");
+       //          console.log(videos.length);
+       //          // parseVideo(videos);
+
+       //          // parseVideo(videos);
+
+       //          // $(".upcomingList").html("");
+
+       //          // for (var j = 1; j < videos.length; j++) {
+       //          //   $.ajax({
+       //          //         url: '//api.embed.ly/1/oembed?url='+ videos[j] +'&key=422cb5607e3d4623949d4360ade230c9',
+       //          //         dataType: 'json',
+       //          //         async: false,
+       //          //         success: function(s) {
+       //          //           var img = grabVideoThumbnail(s.url);
+
+       //          //           $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ s.title +'</span></a></h3><p class="oneContent">' + s.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
+       //          //         }
+       //          //   });
+       //          // }
+
+       //        }
+
+
+       //    }
+
+       //    // console.log(videoHistory.length);
+       //    console.log("Yo");
+       //    console.log(numShifted);
+
+       //    if (numShifted == null || numShifted == 0) {
       
        
-            setInterval(function() {
-            // if (currentTime == 0) {
+       //      setInterval(function() {
+       //      // if (currentTime == 0) {
 
-                fb.child("numShifted").set(Number(videoHistory.length));
-              // }
-              // console.log(Math.round(currentTime));
-            }, 100);
+       //          fb.child("numShifted").set(Number(numShifted));
+       //        // }
+       //        // console.log(Math.round(currentTime));
+       //      }, 100);
 
-            fb.child("numShifted").onDisconnect().set(0);
-          }
+       //      // fb.child("numShifted").onDisconnect().set(0);
+       //    }
        
 
+       //   for (var i = 0; i < numShifted; i++) {
 
-       });
+       //    console.log(videos.length);
+       //    videos.shift();
+       //    console.log("shifted...");
+       //    console.log(videos.length);
+       //    // parseVideo(videos);
+
+       //    // parseVideo(videos);
+
+       //    // $(".upcomingList").html("");
+
+       //    // for (var j = 1; j < videos.length; j++) {
+       //    //   $.ajax({
+       //    //         url: '//api.embed.ly/1/oembed?url='+ videos[j] +'&key=422cb5607e3d4623949d4360ade230c9',
+       //    //         dataType: 'json',
+       //    //         async: false,
+       //    //         success: function(s) {
+       //    //           var img = grabVideoThumbnail(s.url);
+
+       //    //           $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ s.title +'</span></a></h3><p class="oneContent">' + s.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
+       //    //         }
+       //    //   });
+       //    // }
+
+       //  }
 
 
-        console.log(numShifted);
-        for (var i = 0; i < numShifted; i++) {
 
-          console.log(videos.length);
-          videos.shift();
-          console.log("shifted...");
-          console.log(videos.length);
-          // parseVideo(videos);
+       // });
 
-          // parseVideo(videos);
 
-          $(".upcomingList").html("");
-
-          for (var j = 1; j < videos.length; j++) {
-            $.ajax({
-                  url: '//api.embed.ly/1/oembed?url='+ videos[j] +'&key=422cb5607e3d4623949d4360ade230c9',
-                  dataType: 'json',
-                  async: false,
-                  success: function(s) {
-                    var img = grabVideoThumbnail(s.url);
-
-                    $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ s.title +'</span></a></h3><p class="oneContent">' + s.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
-                  }
-            });
-          }
-
-        }
-
+       
 
         // console.log('')
 
