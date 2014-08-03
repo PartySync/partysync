@@ -427,7 +427,7 @@ Built at Y-Combinator Hackathon.
         function extractParameters(url)
         {
           var query = url.match(/.*\?(.*)/)[1];
-          var assignments = query.split("&")
+          var assignments = query.split("&");
           var pair, parameters = {};
           for (var ii = 0; ii < assignments.length; ii++)
           { 
