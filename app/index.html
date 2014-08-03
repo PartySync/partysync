@@ -82,6 +82,11 @@
               width:100%;
             }
 
+            body {
+              /*background-image: url('https://s3.amazonaws.com/ooomf-com-files/cWT6BHfQDW5yDoN1qgn0_DSC06383.png');*/
+              /*background-size: cover;*/
+            }
+
         
         </style>
         <!-- endbuild -->
@@ -181,12 +186,38 @@ Built at Y-Combinator Hackathon.
         <script src="scripts/jquery.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script src="http://cdn.embed.ly/jquery.embedly-3.1.1.min.js" type="text/javascript"></script>
+        <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
         <script src="http://www.youtube.com/player_api"></script>
         <!-- // <script type="text/javascript" src="//cdn.embed.ly/player-0.0.10.min.js"></script> -->
 
         <script>
-        var videos = ['https://www.youtube.com/watch?v=0Bmhjf0rKe8', 'https://www.youtube.com/watch?v=3ahoqR6OGdM', 'https://www.youtube.com/watch?v=hL5nTprjOZQ', 'https://www.youtube.com/watch?v=--MSSAiEcT0', 'https://www.youtube.com/watch?v=98BIu9dpwHU', 'https://www.youtube.com/watch?v=3ahoqR6OGdM'];
-        var history = [];
+        // var room = prompt("Party name?");
+
+
+        var fb = new Firebase('youparty.firebaseio.com/playlists/YCHacks'); //+ //room.toLowerCase());
+
+
+        var videos = []; //['https://www.youtube.com/watch?v=0Bmhjf0rKe8', 'https://www.youtube.com/watch?v=9bZkp7q19f0', 'https://www.youtube.com/watch?v=3ahoqR6OGdM', 'https://www.youtube.com/watch?v=hL5nTprjOZQ', 'https://www.youtube.com/watch?v=--MSSAiEcT0', 'https://www.youtube.com/watch?v=98BIu9dpwHU', 'https://www.youtube.com/watch?v=3ahoqR6OGdM'];
+        var videoHistory = [];
+
+        fb.child("videos").on("child_added", function (data) {
+          console.log(data.val().url);
+          videos.push('https://www.youtube.com/watch?v=' + data.val().url.toString());
+          // console.log(JSON.stringify(data.val()));
+          console.log(videos);
+          parseVideo(videos);
+
+          onYouTubePlayer();
+
+          // onYouTubePlayerAPIReady();
+
+
+        });
+
+
+
+
+
 
         // var player = new playerjs.Player('iframe');
 
@@ -248,20 +279,59 @@ Built at Y-Combinator Hackathon.
 
         // onYouTubePlayerAPIReady(extractParameters(videos[0])["v"]);
 
+
         function onYouTubePlayerAPIReady() {
+
+
             player = new YT.Player('mainVideo', {
               height: '390',
               width: '640',
-              videoId: extractParameters(videos[0])["v"],
+              // videoId: extractParameters(videos[0])["v"],
               events: {
                 'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
+                'onStateChange': function (event) {    
+                // alert(eventData.);  
+                  // alert(event.data);
+                    // if (event.data === 1) {
+                     
+                    // }
+
+                    if(event.data === 0) {
+                        // alert(typeof videos);
+                        
+
+                        if (videos.length != 0) {
+                          videoHistory.push(videos[0]);
+                          videos.shift();
+
+                          if (videos.length == 0) {
+                            videos = videoHistory;
+                            videoHistory = [];
+                            // alert(videos);
+                          }
+                        }
+                      
+                        
+                        parseVideo(videos);
+
+
+
+                        player.loadVideoById(extractParameters(videos[0])["v"], 0, "large");
+
+                    }
+                }
+
+
+
               }
             });
         }
 
+
         // autoplay video
         function onPlayerReady(event) {
+
+            setTimeout(function() { player.loadVideoById(extractParameters(videos[0])["v"], 0, "large");}, 10);
             event.target.playVideo();
         }
 
@@ -269,35 +339,11 @@ Built at Y-Combinator Hackathon.
         function onPlayerStateChange(event) {    
         // alert(eventData.);    
             if(event.data === 0) {
-              // if (document.fullScreen == true) {
-              //     document.requestFullScreen();
-              // }
 
-                // alert('done');
-                // alert(player.videoId);
-                // alert(eventData.target.videoUrl);
                 videos.shift();
-                // alert(eventData.target.videoID);
-
                 parseVideo(videos);
 
-
                 player.loadVideoById(extractParameters(videos[0])["v"], 5, "large")
-                  // alert(videos);
-
-                // event.target.stopVideo();
-
-              //   player = new YT.Player('mainVideo', {
-              //   height: '390',
-              //   width: '640',
-              //   videoId: extractParameters(videos[0])["v"],
-              //   events: {
-              //     'onReady': onPlayerReady,
-              //     'onStateChange': onPlayerStateChange
-              //   }
-              // });
-
-
 
             }
         }
@@ -311,7 +357,7 @@ Built at Y-Combinator Hackathon.
 
         // }
 
-        parseVideo(videos);
+        
         // alert(parseVideo('https://www.youtube.com/watch?v=3ahoqR6OGdM', false));
 
         function extractParameters(url)
