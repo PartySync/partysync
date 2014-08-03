@@ -87,6 +87,22 @@
               /*background-size: cover;*/
             }
 
+            .addBar {
+              border-radius: 6px;
+              width: 100%;
+              padding: 10px;
+              border:1px solid grey;
+              margin-top: 15px;
+              height: 40px;
+
+            }
+
+            .addBar:focus {
+              outline-color: transparent;
+              outline-style: none;
+
+            }
+
         
         </style>
         <!-- endbuild -->
@@ -118,8 +134,9 @@
             <div>
                 <div class="container">
                     <h2 id="partyName" style="text-transform:uppercase; font-weight:700;">{PARTY NAME}</h2>
+                    <input type="text" class="addBar" placeholder="Add new videos..."/>
                     <p class="editorial-header__excerpt g-wide--pull-1">
-                    <center><div id="mainVideo"></div></center><br />
+                    <center><div id="mainVideo"></div></center>
 
                     <!-- <span class="bannerDate" style="font-weight:bold;"></span><br /><br /> -->
                     <span class="mainVideoContent">
@@ -194,25 +211,66 @@ Built at Y-Combinator Hackathon.
         // var room = prompt("Party name?");
 
 
-        var fb = new Firebase('youparty.firebaseio.com/playlists/YCHacks'); //+ //room.toLowerCase());
+
+        var fb = new Firebase('https://youparty.firebaseio.com/playlists/YCHacks'); //+ //room.toLowerCase());
+
+        //fb.child("videos").on("child_added", function (s) {console.log(s.val())})
 
 
         var videos = []; //['https://www.youtube.com/watch?v=0Bmhjf0rKe8', 'https://www.youtube.com/watch?v=9bZkp7q19f0', 'https://www.youtube.com/watch?v=3ahoqR6OGdM', 'https://www.youtube.com/watch?v=hL5nTprjOZQ', 'https://www.youtube.com/watch?v=--MSSAiEcT0', 'https://www.youtube.com/watch?v=98BIu9dpwHU', 'https://www.youtube.com/watch?v=3ahoqR6OGdM'];
         var videoHistory = [];
 
-        fb.child("videos").on("child_added", function (data) {
-          console.log(data.val().url);
-          videos.push('https://www.youtube.com/watch?v=' + data.val().url.toString());
-          // console.log(JSON.stringify(data.val()));
-          console.log(videos);
-          parseVideo(videos);
+        var firstVideo = false;
 
-          onYouTubePlayer();
+        fb.child("videos").on("child_added", function (data) {
+          videos.push('https://www.youtube.com/watch?v=' + data.val().url);
+          if (firstVideo === false) {
+            firstVideo = true;
+
+            $.ajax({
+                url: '//api.embed.ly/1/oembed?url=https://www.youtube.com/watch?v='+ data.val().url +'&key=422cb5607e3d4623949d4360ade230c9',
+                dataType: 'json',
+                async: false,
+                success: function(s) {
+
+
+                  // $(".mainVideo").html(data.html);
+                  $(".mainVideoContent").html(s.description);
+
+                }
+              });
+
+
+
+          } else {
+
+            $.ajax({
+                  url: '//api.embed.ly/1/oembed?url=https://www.youtube.com/watch?v='+ data.val().url +'&key=422cb5607e3d4623949d4360ade230c9',
+                  dataType: 'json',
+                  async: false,
+                  success: function(s) {
+                    var img = grabVideoThumbnail(s.url);
+
+                    $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ s.title +'</span></a></h3><p class="oneContent">' + s.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
+                  }
+            });
+        }
+
+
+          // console.log(JSON.stringify(data.val()));
+          // console.log(videos);
+          
+
+          // onYouTubePlayer();
 
           // onYouTubePlayerAPIReady();
 
 
         });
+
+        // fb.child("videos").on("value", function (data) {
+          // parseVideo(videos);
+        // });
 
 
 
@@ -228,7 +286,7 @@ Built at Y-Combinator Hackathon.
           for (var i = 0; i < testVideos.length; i++) {
             if (i == 0) {
               $.ajax({
-                url: '//api.embed.ly/1/oembed?url='+ testVideos[i] +'&key=ffd2e1e42dc24e5692dddf0136272061',
+                url: '//api.embed.ly/1/oembed?url='+ testVideos[i] +'&key=422cb5607e3d4623949d4360ade230c9',
                 dataType: 'json',
                 async: false,
                 success: function(data) {
@@ -248,18 +306,10 @@ Built at Y-Combinator Hackathon.
               // }); 
 
             } else {
+          
 
-              $.ajax({
-                url: '//api.embed.ly/1/oembed?url='+ testVideos[i] +'&key=ffd2e1e42dc24e5692dddf0136272061',
-                dataType: 'json',
-                async: false,
-                success: function(data) {
-                  var img = grabVideoThumbnail(data.url);
 
-                  $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ data.title +'</span></a></h3><p class="oneContent">' + data.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
-                }
-              });
-
+              
               // $.getJSON('//api.embed.ly/1/oembed?url='+ testVideos[i] +'&key=ffd2e1e42dc24e5692dddf0136272061', function (data) {
 
               //   // $(".upcomingList").append("<li>yo</li>");
@@ -312,7 +362,21 @@ Built at Y-Combinator Hackathon.
                         }
                       
                         
-                        parseVideo(videos);
+                        // parseVideo(videos);
+                        $(".upcomingList").html("");
+
+                        for (var i = 1; i < videos.length; i++) {
+                          $.ajax({
+                                url: '//api.embed.ly/1/oembed?url='+ videos[i] +'&key=422cb5607e3d4623949d4360ade230c9',
+                                dataType: 'json',
+                                async: false,
+                                success: function(s) {
+                                  var img = grabVideoThumbnail(s.url);
+
+                                  $(".upcomingList").append('<li class="featured-list__item clear"><div class="container-small"><div class="featured-list__content g--half"><h3><a href="#" class="oneLink"><span class="oneTitle">'+ s.title +'</span></a></h3><p class="oneContent">' + s.description + '</p></div><div class="featured-list__img-wrapper g--half g--last"><div class="featured-list__img"><img src="'+ img +'" alt="image exemple" style="border-radius: 3px;width:100%;"></div></div></div></li>');
+                                }
+                          });
+                        }
 
 
 
