@@ -48,13 +48,7 @@ function onYouTubePlayerAPIReady() {
            
               db_history.push(extractParameters(player.getVideoUrl())['v']);
               db_queue.once('value', function (snapshot) {
-                if (snapshot.val() == null) {
-              
-                  db_history.once('value', function (s) {
-                    db_queue.set(s.val());
-                    db_history.remove();
-                  });
-                }
+       
 
                 var count = [];
                 snapshot.forEach(function (dataSnap) {
@@ -92,36 +86,36 @@ function onYouTubePlayerAPIReady() {
 function onPlayerReady(event) {
     // var startVid = getFirstObjectInQueue('val');
     db_queue.limitToFirst(1).once('value', function (snapshot) {
-      if (snapshot.val() == null) {
-          db_history.once('value', function (s) {
-            db_queue.set(s.val());
-            db_history.remove();
+      // if (snapshot.val() == null) {
+      //     db_history.once('value', function (s) {
+      //       db_queue.set(s.val());
+      //       db_history.remove();
 
-            for (var keys in snapshot.val()) {
-                if (snapshot.val() == null) {
-                  db_history.once('value', function (s) {
-                    db_queue.set(s.val());
-                    db_history.remove();
-                  });
-                }
+      //       for (var keys in snapshot.val()) {
+      //           if (snapshot.val() == null) {
+      //             db_history.once('value', function (s) {
+      //               db_queue.set(s.val());
+      //               db_history.remove();
+      //             });
+      //           }
 
-                player.loadVideoById(snapshot.val()[keys], 0, "large");
-                event.target.playVideo();
-                updateVideoInfo(snapshot.val()[keys]);
+      //           player.loadVideoById(snapshot.val()[keys], 0, "large");
+      //           event.target.playVideo();
+      //           updateVideoInfo(snapshot.val()[keys]);
 
 
-            }
+      //       }
 
-          });
-        }
+      //     });
+      //   }
 
       for (var keys in snapshot.val()) {
-          if (snapshot.val() == null) {
-            db_history.once('value', function (s) {
-              db_queue.set(s.val());
-              db_history.remove();
-            });
-          }
+          // if (snapshot.val() == null) {
+          //   db_history.once('value', function (s) {
+          //     db_queue.set(s.val());
+          //     db_history.remove();
+          //   });
+          // }
 
           player.loadVideoById(snapshot.val()[keys], 0, "large");
           event.target.playVideo();
@@ -196,4 +190,46 @@ function updateVideoInfo(id) {
 
 
 
+function skip() {
 
+}
+
+
+function rewind_back() {
+  db_history.limitToLast(1).once('value', function (snapshotData) {
+    // console.log(snapshotData.val());
+    for (var keyVals in snapshotData.val()) {
+      var tmp_hist = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/history/' + keyVals);
+      console.log(tmp_hist.key());
+
+      console.log(snapshotData.val()[keyVals]);
+
+      db_queue.push({'.value': snapshotData.val()[keyVals], '.priority': -10000});
+
+      tmp_hist.remove(function () {
+            db_queue.limitToFirst(1).once('value', function (snapshot) {
+
+                for (var keys in snapshot.val()) {
+
+                    player.loadVideoById(snapshot.val()[keys], 0, "large");
+                    event.target.playVideo();
+                    updateVideoInfo(snapshot.val()[keys]);
+
+                }
+            });
+
+
+      });
+
+
+    } // end for loop
+
+    
+
+  });
+
+}
+
+$("#back").click(function() {
+  rewind_back();
+});
