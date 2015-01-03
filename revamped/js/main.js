@@ -268,6 +268,67 @@ function updateVideoInfo(id) {
   });
 }
 
+// You need synchronous ajax calls for this to work.... unforunately, I don't think it
+function displayQueue() {
+  $("#queueArea").html("");
+  db_queue.once('value', function (snapData) {
+    for (var k in snapData.val()) {
+      console.log(snapData.val()[k]);
+
+      
+
+
+    }
+
+
+
+  });
+}
+
+
+
+var queuePriorities = [];
+db_queue.on('child_added', function (snapData) {
+  // alert(snapData.getPriority());
+  
+
+  $.getJSON('http://gdata.youtube.com/feeds/api/videos/'+snapData.val()+'?v=2&alt=jsonc', function (data) {
+  
+      var songTitle = data.data.title;
+      var views = numeral(data.data.viewCount).format('0,0') + " views";
+      $.get('https://gdata.youtube.com/feeds/api/users/'+data.data.uploader+'?v=2.1', function (xmlData) {
+      
+          $xml = $(xmlData),
+          $title = $xml.find("title");
+      
+          var artist = $title.text()
+          if (snapData.getPriority() < queuePriorities[0]) {
+            $("#queueArea").prepend('<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>');
+
+          } else {
+            $("#queueArea").append('<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>');
+
+          }
+          
+
+
+
+          queuePriorities.push(snapData.getPriority());
+      });
+    });
+  
+});
+
+db_queue.on('child_removed', function() {
+
+  var card = document.getElementsByClassName("queueCard")[0];
+  card.parentNode.removeChild(card);
+  // document.removeChild(document.querySelector("#"))
+});
+
+
+
 setInterval(function() {
-  updateVideoInfo(extractParameters(player.getVideoUrl())['v'])
-}, 1000);
+  updateVideoInfo(extractParameters(player.getVideoUrl())['v']);
+  // displayQueue();
+}, 750);
