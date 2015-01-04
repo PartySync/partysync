@@ -1,3 +1,7 @@
+/*
+	(c) 2015 Gautam Mittal
+*/
+
 var express = require('express');
 var app = express();
 

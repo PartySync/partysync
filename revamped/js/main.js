@@ -1,3 +1,8 @@
+/* 
+  (c) 2015 Gautam Mittal
+  
+*/
+
  var urlChunks = window.location.pathname;
  var room;
 
@@ -331,6 +336,25 @@ db_queue.on('child_removed', function() {
   card.parentNode.removeChild(card);
   // document.removeChild(document.querySelector("#"))
 });
+
+
+
+// SYNC VIDEO ACROSS CLIENTS -- THIS IS LITERALLY THE COOLEST PART
+db_queue.limitToFirst(1).on('value', function (snapshot) {
+
+
+      for (var keys in snapshot.val()) {
+
+          player.loadVideoById(snapshot.val()[keys], 0, "large");
+          event.target.playVideo();
+
+          updateVideoInfo(snapshot.val()[keys]);
+
+      }
+ 
+
+});
+
 
 
 var chat_name;
