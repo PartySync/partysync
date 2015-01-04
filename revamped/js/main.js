@@ -20,7 +20,7 @@ var db_chat = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase
 //   if ((i % 2) == 0) {
 //       db_queue.push({'.value':'3Rqcg7BJwJM', '.priority': i});
 //   } else {
-//       db_queue.push({'.value':'mSoPJevJyeE', '.priority': i});
+//       db_queue.push({'.value':'9bZkp7q19f0', '.priority': i});
 //   }
   
 // }
@@ -46,29 +46,35 @@ function onYouTubePlayerAPIReady() {
            
               db_history.push(extractParameters(player.getVideoUrl())['v']);
               db_queue.once('value', function (snapshot) {
-       
+                if (snapshot.val == null) {
 
-                var count = [];
-                snapshot.forEach(function (dataSnap) {
-                  count.push(dataSnap.key());
-                });
-
-                var tmp = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/queue/' + count[0]);
-
-                tmp.remove(function () {
-                    db_queue.limitToFirst(1).once('value', function (snapshot) {
-
-                      for (var keys in snapshot.val()) {
-
-                          player.loadVideoById(snapshot.val()[keys], 0, "large");
-                          event.target.playVideo();
-
-                          updateVideoInfo(snapshot.val()[keys]);
-
-                      }
+                  player.stopVideo();
+                } else {
+                    var count = [];
+                    snapshot.forEach(function (dataSnap) {
+                      count.push(dataSnap.key());
                     });
 
-                });
+                    var tmp = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/queue/' + count[0]);
+
+                    tmp.remove(function () {
+                        db_queue.limitToFirst(1).once('value', function (snapshot) {
+
+                          for (var keys in snapshot.val()) {
+
+                              player.loadVideoById(snapshot.val()[keys], 0, "large");
+                              event.target.playVideo();
+
+                              updateVideoInfo(snapshot.val()[keys]);
+
+                          }
+                        });
+
+                    });
+
+                } // END IF ELSE STATEMENT
+
+                
 
 
 
@@ -324,6 +330,37 @@ db_queue.on('child_removed', function() {
   var card = document.getElementsByClassName("queueCard")[0];
   card.parentNode.removeChild(card);
   // document.removeChild(document.querySelector("#"))
+});
+
+
+var chat_name;
+// ALL CHAT FUNCTION ARE HERE
+$("#chatBoxInput").focus(function() {
+  $(document).keydown(function (evt) {
+      if (evt.which == 13) {
+        var chat_text = document.getElementById("chatBoxInput").value;
+        document.getElementById("chatBoxInput").value = "";
+        
+
+
+        if (chat_text.length > 0) {
+          db_chat.push(chat_text);
+        
+        }
+        
+      }
+
+  });
+});
+
+
+
+
+
+db_chat.limitToLast(500).on('child_added', function (s_chat) {
+  
+  $("#chaatArea").append("- " + s_chat.val() + "<br />");
+  $("#chaatArea").scrollTop($("#chaatArea")[0].scrollHeight);
 });
 
 
