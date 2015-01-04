@@ -6,6 +6,8 @@
  var urlChunks = window.location.pathname;
  var room;
 
+ $("#buttonInputText").hide();
+
  if (urlChunks.substring(urlChunks.length-1) === "/") {
     room = urlChunks.substring(1, urlChunks.length-1).toUpperCase();
  } else {
@@ -49,12 +51,13 @@ function onYouTubePlayerAPIReady() {
             // WHEN VIDEO ENDS -- THIS IS WHAT YOU SHOULD
             if (event.data === 0) {
            
-              db_history.push(extractParameters(player.getVideoUrl())['v']);
+              
               db_queue.once('value', function (snapshot) {
-                if (snapshot.val == null) {
+                if (snapshot.val() == null) {
 
                   player.stopVideo();
                 } else {
+                    
                     var count = [];
                     snapshot.forEach(function (dataSnap) {
                       count.push(dataSnap.key());
@@ -74,6 +77,8 @@ function onYouTubePlayerAPIReady() {
 
                           }
                         });
+
+                        db_history.push({'.value':extractParameters(player.getVideoUrl())['v'], '.priority':null});
 
                     });
 
@@ -223,6 +228,7 @@ function rewind_back() {
               });
 
             } else {
+                console.log("YOOOOOOO I JUST SET SOMETHING'S TO PRIORITY 1");
                 db_queue.push({'.value': snapshotData.val()[keyVals], '.priority': 1});
 
             }
@@ -279,69 +285,87 @@ function updateVideoInfo(id) {
   });
 }
 
+
+
+// var htmlD = " ";
 // You need synchronous ajax calls for this to work.... unforunately, I don't think it
 function displayQueue() {
-  $("#queueArea").html("");
+  var htmlD = " ";
+  // $("#queueArea").html("");
   db_queue.once('value', function (snapData) {
-    for (var k in snapData.val()) {
-      console.log(snapData.val()[k]);
+    snapData.forEach(function (dataSnapVids) {
 
-      
+      $.ajax({
+          type: "GET",
+          url: 'http://gdata.youtube.com/feeds/api/videos/'+dataSnapVids.val()+'?v=2&alt=jsonc',
+          async: false,
+          success : function(data) {
+              var songTitle = data.data.title;
+              var views = numeral(data.data.viewCount).format('0,0') + " views";
+              htmlD += '<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>';
+
+              $("#queueArea").html(htmlD);
+          }
+      });
 
 
-    }
-
-
+    });
 
   });
 }
 
+/* EXPERIMENTAL QUEUE */
 
-
-var queuePriorities = [];
-db_queue.on('child_added', function (snapData) {
-  // alert(snapData.getPriority());
+// var queuePriorities = [];
+// db_queue.on('child_added', function (snapData) {
+//   // alert(snapData.getPriority());
   
 
-  $.getJSON('http://gdata.youtube.com/feeds/api/videos/'+snapData.val()+'?v=2&alt=jsonc', function (data) {
+//   $.getJSON('http://gdata.youtube.com/feeds/api/videos/'+snapData.val()+'?v=2&alt=jsonc', function (data) {
   
-      var songTitle = data.data.title;
-      var views = numeral(data.data.viewCount).format('0,0') + " views";
-      $.get('https://gdata.youtube.com/feeds/api/users/'+data.data.uploader+'?v=2.1', function (xmlData) {
+//       var songTitle = data.data.title;
+//       var views = numeral(data.data.viewCount).format('0,0') + " views";
+//       $.get('https://gdata.youtube.com/feeds/api/users/'+data.data.uploader+'?v=2.1', function (xmlData) {
       
-          $xml = $(xmlData),
-          $title = $xml.find("title");
+//           $xml = $(xmlData),
+//           $title = $xml.find("title");
       
-          var artist = $title.text()
-          if (snapData.getPriority() < queuePriorities[0]) {
-            $("#queueArea").prepend('<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>');
+//           var artist = $title.text()
+//           if (snapData.getPriority() < queuePriorities[0]) {
+//             $("#queueArea").prepend('<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>');
 
-          } else {
-            $("#queueArea").append('<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>');
+//           } else {
+//             $("#queueArea").append('<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>');
 
-          }
+//           }
           
 
 
 
-          queuePriorities.push(snapData.getPriority());
-      });
-    });
+//           queuePriorities.push(snapData.getPriority());
+//       });
+//     });
   
-});
+// });
 
-db_queue.on('child_removed', function() {
+// db_queue.on('child_removed', function() {
 
-  var card = document.getElementsByClassName("queueCard")[0];
-  card.parentNode.removeChild(card);
-  // document.removeChild(document.querySelector("#"))
-});
+//   var card = document.getElementsByClassName("queueCard")[0];
+//   card.parentNode.removeChild(card);
+//   // document.removeChild(document.querySelector("#"))
+// });
+
+
+
+
+
+
 
 
 
 // SYNC VIDEO ACROSS CLIENTS -- THIS IS LITERALLY THE COOLEST PART
 db_queue.limitToFirst(1).on('value', function (snapshot) {
-
+      // displayQueue();
 
       for (var keys in snapshot.val()) {
 
@@ -355,6 +379,10 @@ db_queue.limitToFirst(1).on('value', function (snapshot) {
 
 });
 
+
+db_queue.on('value', function() {
+  displayQueue();
+});
 
 
 var chat_name;
@@ -379,13 +407,47 @@ $("#chatBoxInput").focus(function() {
 
 
 
-
-
 db_chat.limitToLast(500).on('child_added', function (s_chat) {
   
   $("#chaatArea").append("- " + s_chat.val() + "<br />");
   $("#chaatArea").scrollTop($("#chaatArea")[0].scrollHeight);
 });
+
+
+
+
+// ADDING VIDEOS TO QUEUE
+$(".addButton").click(function() {
+  $("#buttonAddText").hide();
+  $("#buttonInputText").show();
+
+
+
+});
+
+$("#buttonInputText").focus(function() {
+  $(document).keydown(function (evt) {
+    if (evt.which == 13) {
+      
+      pushVideoToQueue(extractParameters(document.getElementById("buttonInputText").value)["v"]);
+      document.getElementById("buttonInputText").value = "";
+      $("#buttonAddText").show();
+      $("#buttonInputText").hide();
+    }
+  });
+});
+
+function pushVideoToQueue(id) {
+  console.log(id);
+  db_queue.limitToLast(1).once('value', function (sVals) {
+
+    db_queue.push({'.value': id, '.priority': sVals.getPriority() + 1});
+  });
+
+}
+
+
+
 
 
 

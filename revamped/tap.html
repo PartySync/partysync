@@ -291,6 +291,7 @@
             font-family: 'Roboto';
             font-weight: 300;
             color:black;
+            word-wrap: break-word;
         }
 
                         /**
@@ -505,6 +506,19 @@
                 }
 
 
+                #buttonInputText {
+                    border: none;
+                    border-radius: 2px;
+                    height: 100%;
+                    width: 95%;
+                    font-family:'Roboto';
+                    font-weight: 300;
+                }
+
+                #buttonInputText:focus {
+                    outline: none;
+                }
+
         </style>
     </head>
     <body ontouchstart="" style="background-color: #2196F3;">
@@ -545,7 +559,8 @@
                     <hr class="cardDivider" />
                     <div style="overflow:scroll; position:relative; height: 340px;">
                             <div class="addButton">
-                            <b>+</b> Add Video
+                            <span id="buttonAddText"><b>+</b> Add Video</span>
+                            <input type="text" id="buttonInputText" placeholder="Paste YT video link here!"/>
                             </div>
                             <div id="queueArea">
 
