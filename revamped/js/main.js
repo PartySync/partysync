@@ -51,13 +51,15 @@ function onYouTubePlayerAPIReady() {
             // WHEN VIDEO ENDS -- THIS IS WHAT YOU SHOULD
             if (event.data === 0) {
            
-              
+              db_history.push({'.value':extractParameters(player.getVideoUrl())['v'], '.priority':null});
+
               db_queue.once('value', function (snapshot) {
                 if (snapshot.val() == null) {
 
                   player.stopVideo();
                 } else {
                     
+
                     var count = [];
                     snapshot.forEach(function (dataSnap) {
                       count.push(dataSnap.key());
@@ -78,8 +80,13 @@ function onYouTubePlayerAPIReady() {
                           }
                         });
 
-                        db_history.push({'.value':extractParameters(player.getVideoUrl())['v'], '.priority':null});
-
+                        // db_queue.once('value', function (sCheck) {
+                          // if (sCheck.val() != null) {
+                            
+                       
+                          // }
+                        // });
+                        
                     });
 
                 } // END IF ELSE STATEMENT
@@ -167,7 +174,9 @@ function getFirstObjectInQueue(typeVal) {
 function skip() {
   db_queue.once('value', function (s2) {
     if (s2.val() != null) {
+
         db_history.push(extractParameters(player.getVideoUrl())['v']);
+        
         db_queue.once('value', function (snapshot) {
 
 
@@ -184,20 +193,34 @@ function skip() {
 
                 for (var keys in snapshot.val()) {
 
-                    player.loadVideoById(snapshot.val()[keys], 0, "large");
+                   player.loadVideoById(snapshot.val()[keys], 0, "large");
                     event.target.playVideo();
 
                     updateVideoInfo(snapshot.val()[keys]);
 
                 }
+
+
               });
 
-          });
+              // db_queue.once('value', function (sCHECKS) {
+              //   if (sCHECKS.val() != null) {
+                    
+              //   } 
+                
+              // });
+
+
+
+          }); // END REMOVE
 
 
           
         });
 
+    } else {
+      player.stopVideo();
+      displayQueue();
     }
   });
   
@@ -388,7 +411,7 @@ db_queue.on('value', function() {
 var chat_name;
 // ALL CHAT FUNCTION ARE HERE
 $("#chatBoxInput").focus(function() {
-  $(document).keydown(function (evt) {
+  $("#chatBoxInput").keydown(function (evt) {
       if (evt.which == 13) {
         var chat_text = document.getElementById("chatBoxInput").value;
         document.getElementById("chatBoxInput").value = "";
@@ -399,6 +422,8 @@ $("#chatBoxInput").focus(function() {
           db_chat.push(chat_text);
         
         }
+
+        return false;
         
       }
 
@@ -426,13 +451,16 @@ $(".addButton").click(function() {
 });
 
 $("#buttonInputText").focus(function() {
-  $(document).keydown(function (evt) {
+  $("#buttonInputText").keydown(function (evt) {
     if (evt.which == 13) {
       
       pushVideoToQueue(extractParameters(document.getElementById("buttonInputText").value)["v"]);
       document.getElementById("buttonInputText").value = "";
       $("#buttonAddText").show();
       $("#buttonInputText").hide();
+      // $("#buttonInputText").blur();
+
+      return false;
     }
   });
 });
