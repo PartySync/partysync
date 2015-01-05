@@ -525,8 +525,38 @@ db_numUsers.on('value', function(snapshot) {
 
 db_numUsers.on('value', function (sNum) {
   num_users = 0;
+  var htmlData = " ";
   sNum.forEach(function (sNumData) {
     if (sNumData.val() == "online") {
+      var rand_char = Math.floor(Math.random() * 5) + 1;
+
+      var areaW = $(".partyGoers").width();
+      var areaH = $(".partyGoers").height();
+
+      var x = Math.floor(Math.random() * areaW) + 0;
+      var y = Math.floor(Math.random() * 20) + 10;
+
+      var cssStr = "style='margin-top: "+y+"px; margin-left:"+x+"px;'";
+
+      var htmlStr = " ";
+      if (rand_char == 1) {
+        htmlStr = '<img src="img/joe.png" ' + cssStr + ' />';
+      } else if (rand_char == 2) { 
+        htmlStr = '<img src="img/fred.png" ' + cssStr + ' />';
+
+      } else if (rand_char == 3) {
+        htmlStr = '<img src="img/bob.png" ' + cssStr + ' />';
+
+      } else if (rand_char == 4) {
+        htmlStr = '<img src="img/klik.png" ' + cssStr + ' />';
+
+      } else if (rand_char == 5) {
+        htmlStr = '<img src="img/klak.png" ' + cssStr + ' />';
+
+      }
+      
+      htmlData += htmlStr;
+      $(".partyGoers").html(htmlData);
       num_users++;
     }
     
@@ -535,6 +565,32 @@ db_numUsers.on('value', function (sNum) {
   $(".numUsers").text(num_users);
 });
 
+
+// MAKE THE LITTLE DUDES JUMP
+function jump() {
+  $( ".partyGoers img" ).each(function( index ) {
+    // console.log( index + ": " + $( this ).text() );
+    $(this).animate({
+      // opacity: 0.25,
+      top: "-=3"
+    }, 100, function() {
+      // Animation complete.
+      $(this).animate({
+        // opacity: 0.25,
+        top: "+=3"
+      }, 100);
+    });
+
+    // jump();
+
+
+  });
+
+
+}
+
+
+setInterval(jump, 1000);
 
 
 

@@ -43,6 +43,7 @@
             text-transform: uppercase;
             font-style: italic;
             color: black;/* #0288D1;*/
+            z-index: 100;
 
 
         }
@@ -57,9 +58,28 @@
             font-size: 35px;
             text-transform: uppercase;
             color:black;
+            z-index: 100;
             /*font-style: italic;*/
 
 
+        }
+
+        .partyGoers {
+            height: 60px;
+            width: 60%;
+            background-color:transparent;
+            position:absolute;
+            top: 70px;
+            /*padding-top:35px;*/
+            /*padding-bottom: 35px;*/
+            /*margin-right: 50%;*/
+            left: 30%;
+            text-align: left;
+        }
+
+        .partyGoers img {
+            height: 35px;
+            position:absolute;
         }
 
         .usRoom {
@@ -560,6 +580,7 @@
     </div>
     <div class="header">
         <h1 class="tapRoom">#STACKED</h1>
+        <div class="partyGoers"></div>
         <h1 class="numUsers">0</h1>
 
     </div>
