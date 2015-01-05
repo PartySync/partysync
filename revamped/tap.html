@@ -39,10 +39,10 @@
             font-size: 35px;
             position: absolute;
             left: 15px;
-            top: -15px;
+            top: 55px;
             text-transform: uppercase;
             font-style: italic;
-            color:#0288D1;
+            color: black;/* #0288D1;*/
 
 
         }
@@ -51,18 +51,44 @@
             /*float:right;*/
             position:absolute;
             right: 15px;
-            top: -15px;
+            top: 55px;
             font-family: 'Roboto';
             font-weight: 100;
             font-size: 35px;
             text-transform: uppercase;
+            color:black;
             /*font-style: italic;*/
 
 
         }
 
+        .usRoom {
+            font-family: 'Roboto';
+            font-weight: 100;
+            font-size: 35px;
+            position: absolute;
+            left: 15px;
+            top: -15px;
+            /*text-transform: uppercase;*/
+            /*font-style: italic;*/
+            color:#FFC107;
+
+
+        }
+
+        .socialStuff {
+            position:absolute;
+            right: 15px;
+            top: -15px;
+            font-family: 'Roboto';
+            font-weight: 100;
+            font-size: 35px;
+            color:#FFC107;
+            /*text-transform: uppercase;*/
+        }
+
         .header {
-            background-color:white;
+            background-color:#FFC107; /*white;*/
             width: 100%;
             /*position:relative;*/
             padding-top:35px;
@@ -70,6 +96,10 @@
             z-index: 100;
             box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
 
+        }
+
+        .dark {
+            background-color:black;
         }
 
 
@@ -523,9 +553,14 @@
     </head>
     <body ontouchstart="" style="background-color: #2196F3;">
    
+   <div class="header dark">
+        <h1 class="usRoom">PartySync</h1>
+        <h1 class="socialStuff">f, t, g+</h1>
+
+    </div>
     <div class="header">
         <h1 class="tapRoom">#STACKED</h1>
-        <h1 class="numUsers">500+</h1>
+        <h1 class="numUsers">0</h1>
 
     </div>
         <!--[if lt IE 7]>

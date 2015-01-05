@@ -20,6 +20,7 @@ var db_history = new Firebase('https://youparty.firebaseio.com/' + room.toUpperC
 var db_chat = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/chat');
 var db_pause = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/paused');
 var db_time = new Firebase('https://youparty.firebaseio.com/'+ room.toUpperCase() + '/time');
+var db_numUsers = new Firebase('https://youparty.firebaseio.com/'+ room.toUpperCase() + '/connections');
 
  $(".tapRoom").text("#"+room);
  $("title").text("#"+room);
@@ -499,6 +500,39 @@ db_pause.on('value', function (sPause) {
     player.pauseVideo();
   }
 
+});
+
+
+// FIND OUT NUM_USERS
+var num_users = 0;
+// db_numUsers.once('value', function (sConn) {
+//   db_numUsers.push('yo');
+
+// });
+
+// db_numUsers.onDisconnect(function() {
+
+
+// var amOnline = new Firebase('https://<demo>.firebaseio.com/.info/connected');
+var userRef = new Firebase('https://youparty.firebaseio.com/'+ room.toUpperCase() + '/connections/' + db_numUsers.push().key());
+db_numUsers.on('value', function(snapshot) {
+
+    userRef.onDisconnect().set('offline');
+    userRef.set('online');
+  
+});
+    
+
+db_numUsers.on('value', function (sNum) {
+  num_users = 0;
+  sNum.forEach(function (sNumData) {
+    if (sNumData.val() == "online") {
+      num_users++;
+    }
+    
+  });
+
+  $(".numUsers").text(num_users);
 });
 
 
