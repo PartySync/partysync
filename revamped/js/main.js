@@ -19,6 +19,7 @@ var db_queue = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCas
 var db_history = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/history');
 var db_chat = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/chat');
 var db_pause = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/paused');
+var db_time = new Firebase('https://youparty.firebaseio.com/'+ room.toUpperCase() + '/time');
 
  $(".tapRoom").text("#"+room);
  $("title").text("#"+room);
@@ -118,18 +119,20 @@ function onYouTubePlayerAPIReady() {
 
 function onPlayerReady(event) {
     // var startVid = getFirstObjectInQueue('val');
-    db_pause.set('paused');
+    db_pause.set('playing');
 
     db_queue.limitToFirst(1).once('value', function (snapshot) {
 
 
       for (var keys in snapshot.val()) {
 
-          player.loadVideoById(snapshot.val()[keys], 0, "large");
+        db_time.once('value', function (sTimeVal) {
+          player.loadVideoById(snapshot.val()[keys], sTimeVal.val(), "large");
           event.target.playVideo();
           updateVideoInfo(snapshot.val()[keys]);
 
-
+        });
+          
       }
     });
 
@@ -501,9 +504,11 @@ db_pause.on('value', function (sPause) {
 
 
 
-
-
 setInterval(function() {
   updateVideoInfo(extractParameters(player.getVideoUrl())['v']);
-  // displayQueue();
+  db_time.set(player.getCurrentTime());
 }, 750);
+    
+
+  
+
