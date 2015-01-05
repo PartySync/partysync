@@ -107,6 +107,27 @@
             /*text-transform: uppercase;*/
         }
 
+        .social{
+            height: 45px;
+            padding-left: 2px;
+            padding-right: 2px;
+            -webkit-filter: grayscale(0%);
+            -moz-filter: grayscale(0%);
+            filter: grayscale(0%);
+            -webkit-transition: all 0.1s linear;
+            -moz-transition: all 0.1s linear;
+            -o-transition: all 0.1s linear;
+            -ms-transition: all 0.1s linear;
+
+          }
+
+          .social:hover {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            filter: grayscale(100%);
+            cursor: pointer;
+          }
+
         .header {
             background-color:#FFC107; /*white;*/
             width: 100%;
@@ -575,7 +596,11 @@
    
    <div class="header dark">
         <h1 class="usRoom">PartySync</h1>
-        <h1 class="socialStuff">f, t, g+</h1>
+        <h1 class="socialStuff">
+            <img src="http://www.gautam.cc/img/social/google+@2x.png" class="social"/>
+            <img src="http://www.gautam.cc/img/social/twitter@2x.png" class="social"/>
+            <img src="http://www.gautam.cc/img/social/facebook@2x.png" class="social"/>
+        </h1>
 
     </div>
     <div class="header">
