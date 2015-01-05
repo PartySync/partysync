@@ -18,6 +18,7 @@ var db = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase());
 var db_queue = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/queue');
 var db_history = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/history');
 var db_chat = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/chat');
+var db_pause = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/paused');
 
  $(".tapRoom").text("#"+room);
  $("title").text("#"+room);
@@ -31,6 +32,8 @@ var db_chat = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase
 //   }
   
 // }
+
+
 
 
 var player;
@@ -98,7 +101,16 @@ function onYouTubePlayerAPIReady() {
                 
               });
   
-            }
+            } else if (event.data === 1) { // IF VIDEO IS PLAYING
+              db_pause.set('playing');
+
+
+
+            } else if (event.data === 2) { // IF VIDEO IS PAUSED
+              db_pause.set('paused');
+
+
+            } // END VIDEO PAUSED/PLAYING CONDITIONAL
         }
       }
     });
@@ -106,6 +118,8 @@ function onYouTubePlayerAPIReady() {
 
 function onPlayerReady(event) {
     // var startVid = getFirstObjectInQueue('val');
+    db_pause.set('paused');
+
     db_queue.limitToFirst(1).once('value', function (snapshot) {
 
 
@@ -473,6 +487,16 @@ function pushVideoToQueue(id) {
   });
 
 }
+
+// REGULATE PAUSING/PLAYING ACROSS CLIENTS
+db_pause.on('value', function (sPause) {
+  if (sPause.val() == "playing") {
+    player.playVideo();
+  } else if (sPause.val() == "paused") {
+    player.pauseVideo();
+  }
+
+});
 
 
 
