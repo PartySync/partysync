@@ -8,7 +8,7 @@ var app = express();
 
 var Firebase = require('firebase');
 
-var port = 50000;
+var port = 8080;
 
 // var globalDB = new Firebase("https://tap-78901.firebaseio.com/");
 

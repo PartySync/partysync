@@ -540,18 +540,18 @@ db_numUsers.on('value', function (sNum) {
 
       var htmlStr = " ";
       if (rand_char == 1) {
-        htmlStr = '<img src="img/joe.png" ' + cssStr + ' />';
+        htmlStr = '<img src="../img/joe.png" ' + cssStr + ' />';
       } else if (rand_char == 2) { 
-        htmlStr = '<img src="img/fred.png" ' + cssStr + ' />';
+        htmlStr = '<img src="../img/fred.png" ' + cssStr + ' />';
 
       } else if (rand_char == 3) {
-        htmlStr = '<img src="img/bob.png" ' + cssStr + ' />';
+        htmlStr = '<img src="../img/bob.png" ' + cssStr + ' />';
 
       } else if (rand_char == 4) {
-        htmlStr = '<img src="img/klik.png" ' + cssStr + ' />';
+        htmlStr = '<img src="../img/klik.png" ' + cssStr + ' />';
 
       } else if (rand_char == 5) {
-        htmlStr = '<img src="img/klak.png" ' + cssStr + ' />';
+        htmlStr = '<img src="../img/klak.png" ' + cssStr + ' />';
 
       }
       
