@@ -1,6 +1,6 @@
-/* 
+/*
   (c) 2015 Gautam Mittal
-  
+
 */
 
  var urlChunks = window.location.pathname;
@@ -32,7 +32,7 @@ var db_numUsers = new Firebase('https://youparty.firebaseio.com/'+ room.toUpperC
 //   } else {
 //       db_queue.push({'.value':'9bZkp7q19f0', '.priority': i});
 //   }
-  
+
 // }
 
 
@@ -51,11 +51,11 @@ function onYouTubePlayerAPIReady() {
 
       events: {
         'onReady': onPlayerReady,
-        'onStateChange': function (event) {    
+        'onStateChange': function (event) {
 
             // WHEN VIDEO ENDS -- THIS IS WHAT YOU SHOULD
             if (event.data === 0) {
-           
+
               db_history.push({'.value':extractParameters(player.getVideoUrl())['v'], '.priority':null});
 
               db_queue.once('value', function (snapshot) {
@@ -63,7 +63,7 @@ function onYouTubePlayerAPIReady() {
 
                   player.stopVideo();
                 } else {
-                    
+
 
                     var count = [];
                     snapshot.forEach(function (dataSnap) {
@@ -87,22 +87,22 @@ function onYouTubePlayerAPIReady() {
 
                         // db_queue.once('value', function (sCheck) {
                           // if (sCheck.val() != null) {
-                            
-                       
+
+
                           // }
                         // });
-                        
+
                     });
 
                 } // END IF ELSE STATEMENT
 
-                
 
 
 
-                
+
+
               });
-  
+
             } else if (event.data === 1) { // IF VIDEO IS PLAYING
               db_pause.set('playing');
 
@@ -116,7 +116,7 @@ function onYouTubePlayerAPIReady() {
         }
       }
     });
-}  
+}
 
 function onPlayerReady(event) {
     // var startVid = getFirstObjectInQueue('val');
@@ -133,15 +133,15 @@ function onPlayerReady(event) {
           updateVideoInfo(snapshot.val()[keys]);
 
         });
-          
+
       }
     });
 
-    
 
 
-    
-    
+
+
+
 }
 
 
@@ -152,7 +152,7 @@ function extractParameters(url)
   var assignments = query.split("&");
   var pair, parameters = {};
   for (var ii = 0; ii < assignments.length; ii++)
-  { 
+  {
       pair = assignments[ii].split("=");
       parameters[pair[0]] = pair[1];
   }
@@ -164,7 +164,7 @@ function getFirstObjectInQueue(typeVal) {
   // var keys0 = "yo";
 
   if (typeVal =='key') {
-    
+
     db_queue.once('value', function (snapshot) {
       for (var keys in snapshot.val()) {
           console.log(keys);
@@ -174,17 +174,17 @@ function getFirstObjectInQueue(typeVal) {
     });
 
   } else if (typeVal == 'val') {
-    
+
     db_queue.limitToFirst(1).once('value', function (snapshot) {
       for (var keys in snapshot.val()) {
-       
+
           return snapshot.val()[keys];
       }
     });
 
   }
-  
-} 
+
+}
 
 
 
@@ -194,7 +194,7 @@ function skip() {
     if (s2.val() != null) {
 
         db_history.push(extractParameters(player.getVideoUrl())['v']);
-        
+
         db_queue.once('value', function (snapshot) {
 
 
@@ -223,9 +223,9 @@ function skip() {
 
               // db_queue.once('value', function (sCHECKS) {
               //   if (sCHECKS.val() != null) {
-                    
-              //   } 
-                
+
+              //   }
+
               // });
 
 
@@ -233,7 +233,7 @@ function skip() {
           }); // END REMOVE
 
 
-          
+
         });
 
     } else {
@@ -241,7 +241,7 @@ function skip() {
       displayQueue();
     }
   });
-  
+
 
 
 }
@@ -257,13 +257,13 @@ function rewind_back() {
           console.log(snapshotData.val()[keyVals]);
 
           // prepend the object
-          db_queue.limitToFirst(1).once('value', function (snap) { 
+          db_queue.limitToFirst(1).once('value', function (snap) {
             // alert("YO");
             if (snap.val() !== null) {
-              snap.forEach(function (s) { 
+              snap.forEach(function (s) {
 
                 console.log(s.getPriority());
-               
+
                 db_queue.push({'.value': snapshotData.val()[keyVals], '.priority': s.getPriority()-1});
 
               });
@@ -276,7 +276,7 @@ function rewind_back() {
 
           });
 
-          
+
 
           tmp_hist.remove(function () {
             db_queue.limitToFirst(1).once('value', function (s1) {
@@ -292,12 +292,12 @@ function rewind_back() {
             });
           });
 
-          
+
 
 
     } // end for loop
 
-    
+
 
   });
 
@@ -360,17 +360,17 @@ function displayQueue() {
 // var queuePriorities = [];
 // db_queue.on('child_added', function (snapData) {
 //   // alert(snapData.getPriority());
-  
+
 
 //   $.getJSON('http://gdata.youtube.com/feeds/api/videos/'+snapData.val()+'?v=2&alt=jsonc', function (data) {
-  
+
 //       var songTitle = data.data.title;
 //       var views = numeral(data.data.viewCount).format('0,0') + " views";
 //       $.get('https://gdata.youtube.com/feeds/api/users/'+data.data.uploader+'?v=2.1', function (xmlData) {
-      
+
 //           $xml = $(xmlData),
 //           $title = $xml.find("title");
-      
+
 //           var artist = $title.text()
 //           if (snapData.getPriority() < queuePriorities[0]) {
 //             $("#queueArea").prepend('<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>');
@@ -379,14 +379,14 @@ function displayQueue() {
 //             $("#queueArea").append('<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>');
 
 //           }
-          
+
 
 
 
 //           queuePriorities.push(snapData.getPriority());
 //       });
 //     });
-  
+
 // });
 
 // db_queue.on('child_removed', function() {
@@ -416,7 +416,7 @@ db_queue.limitToFirst(1).on('value', function (snapshot) {
           updateVideoInfo(snapshot.val()[keys]);
 
       }
- 
+
 
 });
 
@@ -433,16 +433,16 @@ $("#chatBoxInput").focus(function() {
       if (evt.which == 13) {
         var chat_text = document.getElementById("chatBoxInput").value;
         document.getElementById("chatBoxInput").value = "";
-        
+
 
 
         if (chat_text.length > 0) {
           db_chat.push(chat_text);
-        
+
         }
 
         return false;
-        
+
       }
 
   });
@@ -451,7 +451,7 @@ $("#chatBoxInput").focus(function() {
 
 
 db_chat.limitToLast(500).on('child_added', function (s_chat) {
-  
+
   $("#chaatArea").append("- " + s_chat.val() + "<br />");
   $("#chaatArea").scrollTop($("#chaatArea")[0].scrollHeight);
 });
@@ -471,7 +471,7 @@ $(".addButton").click(function() {
 $("#buttonInputText").focus(function() {
   $("#buttonInputText").keydown(function (evt) {
     if (evt.which == 13) {
-      
+
       pushVideoToQueue(extractParameters(document.getElementById("buttonInputText").value)["v"]);
       document.getElementById("buttonInputText").value = "";
       $("#buttonAddText").show();
@@ -519,9 +519,9 @@ db_numUsers.on('value', function(snapshot) {
 
     userRef.onDisconnect().set('offline');
     userRef.set('online');
-  
+
 });
-    
+
 
 db_numUsers.on('value', function (sNum) {
   num_users = 0;
@@ -534,14 +534,15 @@ db_numUsers.on('value', function (sNum) {
       var areaH = $(".partyGoers").height();
 
       var x = Math.floor(Math.random() * areaW) + 0;
-      var y = Math.floor(Math.random() * 20) + 10;
+      var y = Math.floor(Math.random() * 15) + 5;
+      // y = 20;
 
       var cssStr = "style='margin-top: "+y+"px; margin-left:"+x+"px;'";
 
       var htmlStr = " ";
       if (rand_char == 1) {
         htmlStr = '<img src="../img/joe.png" ' + cssStr + ' />';
-      } else if (rand_char == 2) { 
+      } else if (rand_char == 2) {
         htmlStr = '<img src="../img/fred.png" ' + cssStr + ' />';
 
       } else if (rand_char == 3) {
@@ -554,12 +555,12 @@ db_numUsers.on('value', function (sNum) {
         htmlStr = '<img src="../img/klak.png" ' + cssStr + ' />';
 
       }
-      
+
       htmlData += htmlStr;
       $(".partyGoers").html(htmlData);
       num_users++;
     }
-    
+
   });
 
   $(".numUsers").text(num_users);
@@ -598,7 +599,7 @@ setInterval(function() {
   updateVideoInfo(extractParameters(player.getVideoUrl())['v']);
   db_time.set(player.getCurrentTime());
 }, 750);
-    
 
-  
+
+
 

@@ -28,7 +28,7 @@
         <style>
   /*      .content {
             text-align: center;
-            margin-top: 10%;   
+            margin-top: 10%;
             position:relative;
             margin:auto;
         }*/
@@ -91,7 +91,7 @@
             top: -15px;
             /*text-transform: uppercase;*/
             /*font-style: italic;*/
-            color:#FFC107;
+            color:#F5D76E;
 
 
         }
@@ -103,7 +103,7 @@
             font-family: 'Roboto';
             font-weight: 100;
             font-size: 35px;
-            color:#FFC107;
+            color:#F5D76E;
             /*text-transform: uppercase;*/
         }
 
@@ -129,7 +129,7 @@
           }
 
         .header {
-            background-color:#FFC107; /*white;*/
+            background-color:#F5D76E; /*white;    <- oh man this got me so confused. THIS IS NOT WHITE IT IS YELLOW -kevin*/
             width: 100%;
             /*position:relative;*/
             padding-top:35px;
@@ -354,7 +354,7 @@
             outline: none;
             border: 1px solid #16a085;
         }
-        
+
         #chaatArea {
             text-align: left;
             padding-left: 10px;
@@ -386,15 +386,15 @@
                   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
                   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
                   opacity: 0;
-                  -webkit-transition: 
+                  -webkit-transition:
                       opacity 0.2s ease-in-out,
                         visibility 0.2s ease-in-out,
                         -webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-                    -moz-transition:    
+                    -moz-transition:
                         opacity 0.2s ease-in-out,
                         visibility 0.2s ease-in-out,
                         -moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-                    transition:         
+                    transition:
                         opacity 0.2s ease-in-out,
                         visibility 0.2s ease-in-out,
                         transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
@@ -485,7 +485,7 @@
                 .tooltip-top:focus:after {
                   -webkit-transform: translateY(-12px);
                   -moz-transform:    translateY(-12px);
-                  transform:         translateY(-12px); 
+                  transform:         translateY(-12px);
                 }
 
                 /* Left */
@@ -511,7 +511,7 @@
                 .tooltip-left:focus:after {
                   -webkit-transform: translateX(-12px);
                   -moz-transform:    translateX(-12px);
-                  transform:         translateX(-12px); 
+                  transform:         translateX(-12px);
                 }
 
                 /* Bottom */
@@ -536,7 +536,7 @@
                 .tooltip-bottom:focus:after {
                   -webkit-transform: translateY(12px);
                   -moz-transform:    translateY(12px);
-                  transform:         translateY(12px); 
+                  transform:         translateY(12px);
                 }
 
                 /* Right */
@@ -560,7 +560,7 @@
                 .tooltip-right:focus:after {
                   -webkit-transform: translateX(12px);
                   -moz-transform:    translateX(12px);
-                  transform:         translateX(12px); 
+                  transform:         translateX(12px);
                 }
 
                 /* Move directional arrows down a bit for left/right tooltips */
@@ -592,8 +592,8 @@
 
         </style>
     </head>
-    <body ontouchstart="" style="background-color: #2196F3;">
-   
+    <body ontouchstart="" style="background-color: #6BB9F0;">
+
    <div class="header dark">
         <h1 class="usRoom"><img src="../img/play-video.png" style="height: 45px; margin-top: -5px; display:inline-block;"/>&nbsp; PartySync</h1>
         <h1 class="socialStuff">
@@ -623,18 +623,18 @@
             <span id="artistName">It Looks Like There's Nothing in The Queue</span> | <span id="views">Add a Video!</span>
             <img src="img/skip.png" id="skip" class="change" style="float:right;position:absolute; height:40px; top: 30px; right: 20px;"/>
         </div>
-           
+
             <span class="content half" style="float:left;">
                 <div id="mainVideo"></div>
 
                 <!-- <img src="../img/diamond.png" id="tapper"/> -->
-                
+
             </span>
 
 
 
             <span class="content half" style="float:right;">
-                
+
                 <span class="content half" id="queue" style="float:left; margin-top: 20px;">
                     <h4>QUEUE</h4>
                     <hr class="cardDivider" />
@@ -654,7 +654,7 @@
                     <h4>CHAT</h4>
                     <hr class="cardDivider" />
                     <div style="overflow:scroll; position:relative; height: 310px; padding-bottom: 5px;" id="chaatArea">
-                            
+
                     </div>
                     <input type="text" id="chatBoxInput" placeholder="Type message here..."/>
                 </span>
@@ -662,7 +662,7 @@
 
         </div> <!-- end MAIN -->
         </center>
-     
+
         <script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
@@ -675,7 +675,7 @@
 
 
 
-    
+
 
     </body>
 </html>
