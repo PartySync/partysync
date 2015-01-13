@@ -460,9 +460,10 @@ db_chat.limitToLast(500).on('child_added', function (s_chat) {
 
 
 // ADDING VIDEOS TO QUEUE
-$(".addButton").click(function() {
-  $("#buttonAddText").hide();
-  $("#buttonInputText").show();
+$("#addVideo").click(function() {
+  // $("#buttonAddText").hide();
+  // $("#buttonInputText").show();
+  window.location = "#modal";
 
 
 

@@ -24,6 +24,7 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900,900italic' rel='stylesheet' type='text/css'>
 
         <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+        <link rel="stylesheet" href="../CSS3-Modal/css/modal.css"> <!-- very important, css modals -->
 
         <style>
   /*      .content {
@@ -350,9 +351,17 @@
             font-weight: 300;
         }
 
+        input {
+            -webkit-transition: all 0.1s linear;
+            -moz-transition: all 0.1s linear;
+            -o-transition: all 0.1s linear;
+            -ms-transition: all 0.1s linear;
+        }
+
         #chatBoxInput:focus {
             outline: none;
             border: 1px solid #16a085;
+
         }
         
         #chaatArea {
@@ -590,6 +599,23 @@
                     outline: none;
                 }
 
+                #search {
+                    outline:none;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    border-radius: 13px;
+                    padding: 8px 15px 8px 15px;
+                    font-size: 17px;
+                    font-family: 'Roboto';
+                    font-weight: 100;
+                    display:inline-block;
+
+                }
+
+                #search:focus {
+                    outline:none;
+                    border: 1px solid #16a085;
+                }
+
         </style>
     </head>
     <body ontouchstart="" style="background-color: #2196F3;">
@@ -639,7 +665,7 @@
                     <h4>QUEUE</h4>
                     <hr class="cardDivider" />
                     <div style="overflow:scroll; position:relative; height: 340px;">
-                            <div class="addButton">
+                            <div class="addButton" id="addVideo">
                             <span id="buttonAddText"><b>+</b> Add Video</span>
                             <input type="text" id="buttonInputText" placeholder="Paste YT video link here!"/>
                             </div>
@@ -662,19 +688,22 @@
 
         </div> <!-- end MAIN -->
 
-
-        <section class="modal--show" id="modal-text" tabindex="-1"
-        role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-
-            <div class="modal-inner">
-                <header id="modal-label"><!-- Header --></header>
-                <div class="modal-content"><!-- The modals content --></div>
-                <footer><!-- Footer --></footer>
+        <div id="modal">
+            <div class="modal-content">
+                <div class="modalHeader" style="padding-top: 20px; padding-bottom: 20px;">
+                    <h2>Add A Video</h2>
+                </div>
+                <div class="copy" style="font-family: 'Roboto'; font-weight: 300; color:black;">
+                    <input type="text" id="search" placeholder="Search for a video" />
+                    <input type="text" id="buttonInputText" placeholder="Or paste a YouTube video link"/>
+                </div>
+                <div class="cf footer">
+                    <button class="addButton" onclick="javascript: window.location = '#';">I'm done!</button>
+                </div>
             </div>
-
-            <a href="#!" class="modal-close" title="Close this modal" data-close="Close"
-                data-dismiss="modal">?</a>
-        </section>
+            <div class="overlay"></div>
+        </div>
+       
 
 
         </center>
