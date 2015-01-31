@@ -7,6 +7,7 @@
     "doc": "doc"
   },
   "dependencies": {
+    "dotenv": "^0.5.1",
     "express": "^4.11.1",
     "firebase": "^2.1.2",
     "keen-js": "^3.2.2",
