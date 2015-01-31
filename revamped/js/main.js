@@ -9,9 +9,9 @@
  $("#buttonInputText").hide();
 
  if (urlChunks.substring(urlChunks.length-1) === "/") {
-    room = urlChunks.substring(1, urlChunks.length-1).toUpperCase();
+    room = decodeURI(urlChunks.substring(1, urlChunks.length-1).toUpperCase());
  } else {
-    room = urlChunks.substring(1, urlChunks.length).toUpperCase();
+    room = decodeURI(urlChunks.substring(1, urlChunks.length).toUpperCase());
  }
 
 var db = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase());
