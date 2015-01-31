@@ -1,0 +1,27 @@
+{
+  "name": "PartySync",
+  "version": "1.0.0",
+  "description": "Turntable.fm for videos.",
+  "main": "server.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "dependencies": {
+    "express": "^4.11.1",
+    "firebase": "^2.0.6",
+    "keen-js": "^3.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "party",
+    "sync",
+    "videos",
+    "youtube"
+  ],
+  "author": "Gautam Mittal",
+  "license": "ISC"
+}
