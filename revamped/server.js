@@ -33,6 +33,8 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
+
+
 app.get('/:party_name', function (req, res) {
 	console.log(req.param("party_name").toLowerCase());
 	var id = req.param("party_name").toLowerCase();
