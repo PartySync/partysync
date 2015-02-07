@@ -461,9 +461,9 @@ db_chat.limitToLast(500).on('child_added', function (s_chat) {
 
 // ADDING VIDEOS TO QUEUE
 $("#addVideo").click(function() {
-  // $("#buttonAddText").hide();
-  // $("#buttonInputText").show();
-  window.location = "#modal";
+  $("#buttonAddText").hide();
+  $("#buttonInputText").show();
+  // window.location = "#modal";
 
 
 
@@ -506,12 +506,6 @@ db_pause.on('value', function (sPause) {
 
 // FIND OUT NUM_USERS
 var num_users = 0;
-// db_numUsers.once('value', function (sConn) {
-//   db_numUsers.push('yo');
-
-// });
-
-// db_numUsers.onDisconnect(function() {
 
 
 // var amOnline = new Firebase('https://<demo>.firebaseio.com/.info/connected');
