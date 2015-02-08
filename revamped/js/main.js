@@ -509,7 +509,11 @@ var num_users = 0;
 
 
 // var amOnline = new Firebase('https://<demo>.firebaseio.com/.info/connected');
-var userRef = new Firebase('https://youparty.firebaseio.com/'+ room.toUpperCase() + '/connections/' + db_numUsers.push().key());
+
+var user_id;
+var user_key = db_numUsers.push().key();
+
+var userRef = new Firebase('https://youparty.firebaseio.com/'+ room.toUpperCase() + '/connections/' + user_key);
 db_numUsers.on('value', function(snapshot) {
 
     userRef.onDisconnect().set('offline');
@@ -553,6 +557,11 @@ db_numUsers.on('value', function (sNum) {
       htmlData += htmlStr;
       $(".partyGoers").html(htmlData);
       num_users++;
+
+      if (sNumData.key() == user_key) {
+        user_id = num_users;
+      }
+
     }
     
   });
