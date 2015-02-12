@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>PartySync: Ultimate Party System</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="dist/css/normalize.css">
+  <link rel="stylesheet" href="dist/css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+
+  <!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="../images/play-video.png">
+
+
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700italic,400,700,300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+  <style>
+  h1 {
+    font-weight:600;
+    font-family: 'Roboto Condensed';
+    color:white;
+  }
+
+  .hero-heading {
+    font-family: 'Roboto';
+    font-size: 25px;
+    line-height: 140%;
+    font-weight:100;
+    color:rgb(169,169,169);
+  }
+
+  .usRoom {
+    font-family: 'Roboto';
+    font-weight: 100;
+    font-size: 35px;
+    /*position: absolute;*/
+    /*left: 15px;*/
+    /*top: -15px;*/
+    /*text-transform: uppercase;*/
+    /*font-style: italic;*/
+    color:#FFC107;
+
+
+  }
+
+  body {
+    background-color: rgb(33,33,33);
+
+  }
+/*
+  input:before {
+    content: "#attr(val)";
+  }*/
+
+  #joinRoom {
+     padding-left: 25px;
+
+     font-size: 35px;
+     font-family:'Roboto Condensed';
+     font-weight:700;
+     text-transform: uppercase;
+     font-style:italic;
+     background-color:transparent;
+     color:rgb(255, 195, 0);
+     border-top:0;
+     border-left:0;
+     border-right:0;
+     border-bottom: 3px solid rgb(255, 195, 0);
+     /*padding-right: 40px;*/
+     padding-bottom: 40px;
+     padding-top: 40px;
+     border-radius:0;
+     margin-left:-10px;
+     width:90%;
+
+     /*border: 0px 0px 1px 0px solid white;*/
+  }
+  </style>
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <div class="section hero">
+    <div class="container">
+      <div class="row">
+
+        <div class="one-half column">
+        <h1 class="usRoom"><img src="../images/play-video.png" style="height: 45px; margin-top: -5px; display:inline-block;vertical-align:middle;"/>&nbsp; PartySync</h1>
+          <h1>Watch videos together.</h1>
+          <h4 class="hero-heading">The ultimate video watching experience.</h4>
+
+           <span style="font-size: 35px; color:rgb(255, 195, 0); font-family:'Roboto Condensed'; font-weight:700; text-transform: uppercase; font-style:italic; position: relative; left: 8px">#</span><input id="joinRoom" placeholder="join Room" type="text" />
+          <!-- <a class="button button-primary" href="http://getskeleton.com">Try Skeleton</a> -->
+        </div>
+        <div class="one-half column phones">
+          
+          
+          <!-- <img src="images/connected-banner.png"> -->
+          <img class="phone" src="../images/iphone-play.png">
+          <img class="phone" src="../images/iphone-play.png">
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--   <div class="section values">
+    <div class="container">
+      <div class="row">
+        <div class="one-third column value">
+          <h2 class="value-multiplier">67%</h2>
+          <h5 class="value-heading">Purchase Increase</h5>
+          <p class="value-description">Percentage of users more likely to purchase on mobile friendly site.</p>
+        </div>
+        <div class="one-third column value">
+          <h2 class="value-multiplier">90%</h2>
+          <h5 class="value-heading">Multi-device Users</h5>
+          <p class="value-description">Most of the world accesses the internet on multiple devices.</p>
+        </div>
+        <div class="one-third column value">
+          <h2 class="value-multiplier">100%</h2>
+          <h5 class="value-heading">Sad Users</h5>
+          <p class="value-description">Percentage of users that are frustrated with page load times.</p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+ <!--  <div class="section get-help">
+    <div class="container">
+      <h3 class="section-heading">Need help getting started?</h3>
+      <p class="section-description">Skeleton is an amazingly easy place to start with responsive development. If you want to learn more, just visit the documentation!</p>
+      <a class="button button-primary" href="http://getskeleton.com">View Skeleton Docs</a>
+    </div>
+  </div>
+
+  <div class="section categories">
+    <div class="container">
+      <h3 class="section-heading">Responsive Images</h3>
+      <p class="section-description">Skeleton images sit easily in grid with .u-max-full-width class. I suggest exploring solution to serving different images based on device size.</p>
+      <div class="row">
+        <div class="one-half column category">
+          <img class="u-max-full-width" src="images/placeholder.png">
+        </div>
+        <div class="one-half column category">
+          <img class="u-max-full-width" src="images/placeholder.png">
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+
+  <script>
+    $("#joinRoom").keydown(function (evt) {
+      if (evt.which == 13 && $("#joinRoom").val().length != 0) {
+        var room = $("#joinRoom").val();
+        document.getElementById("joinRoom").value = "";
+        window.location = "http://www.partysyncwith.me/"+room;
+      }
+    });
+  </script>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
