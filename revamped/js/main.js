@@ -601,8 +601,15 @@ setInterval(jump, 1000);
 setInterval(function() {
   updateVideoInfo(extractParameters(player.getVideoUrl())['v']);
   db_time.set(player.getCurrentTime());
+
 }, 750);
     
+
+// Emojis :)
+setInterval(function() {
+  emojify.run(document.getElementById('chatBox')); // Emojis :)
+}, 100);
+
 
   
 
