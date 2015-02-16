@@ -437,7 +437,8 @@ $("#chatBoxInput").focus(function() {
 
 
         if (chat_text.length > 0) {
-          db_chat.push(chat_text);
+          // db_chat.push(chat_text);
+          db_chat.push("<b>A"+user_id+": </b>" + chat_text + "<br />")
         
         }
 
@@ -452,7 +453,7 @@ $("#chatBoxInput").focus(function() {
 
 db_chat.limitToLast(500).on('child_added', function (s_chat) {
   
-  $("#chaatArea").append("- " + s_chat.val() + "<br />");
+  $("#chaatArea").append(s_chat.val());
   $("#chaatArea").scrollTop($("#chaatArea")[0].scrollHeight);
 });
 
