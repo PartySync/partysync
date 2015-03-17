@@ -55,13 +55,19 @@ function onYouTubePlayerAPIReady() {
 
             // WHEN VIDEO ENDS -- THIS IS WHAT YOU SHOULD
             if (event.data === 0) {
-           
-              db_history.push({'.value':extractParameters(player.getVideoUrl())['v'], '.priority':null});
+              // console.log("Video ended");
+
+              // if (user_id == 1) {
+                // console.log("YAY");
+                db_history.push({'.value':extractParameters(player.getVideoUrl())['v'], '.priority':null});  
+              // }
+              
 
               db_queue.once('value', function (snapshot) {
                 if (snapshot.val() == null) {
 
                   player.stopVideo();
+                  // player.clearVideo();
                 } else {
                     
 
@@ -238,6 +244,7 @@ function skip() {
 
     } else {
       player.stopVideo();
+      // player.clearVideo();
       displayQueue();
     }
   });
@@ -595,16 +602,32 @@ function jump() {
 }
 
 
-setInterval(jump, 1000);
+setInterval(jump, 500);
 
 
 
 setInterval(function() {
   updateVideoInfo(extractParameters(player.getVideoUrl())['v']);
-  db_time.set(player.getCurrentTime());
+  if (user_id == 1) {
+    db_time.set(Math.round(player.getCurrentTime()*100)/100);
+  }
+
+  
+ 
 
 }, 750);
-    
+ 
+
+  // db_time.on('value', function(snapshot) {
+  //   // console.log(snapshot.val());
+  //   if (Math.round(player.getCurrentTime()*100)/100 != snapshot.val()) {
+  //     player.seekTo(snapshot.val(), true);
+
+  //   }
+  // });  
+
+
+
 
 // Emojis :)
 setInterval(function() {
