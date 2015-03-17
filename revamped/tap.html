@@ -19,7 +19,9 @@
         <link rel="icon" type="image/png" href="../images/play-video.png">
 
         <link rel="stylesheet" href="../css/normalize.css">
+        <!-- <link rel="stylesheet" href="../css/skeleton.css"> -->
         <link rel="stylesheet" href="../css/main.css">
+
         <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700,700italic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900,900italic' rel='stylesheet' type='text/css'>
@@ -41,11 +43,16 @@
             font-weight: 700;
             font-size: 35px;
             position: absolute;
-            left: 15px;
-            top: 55px;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0px;
+            top: -15px;
+            text-align:center;
+            width:100%;
+
             text-transform: uppercase;
             font-style: italic;
-            color: black;/* #0288D1;*/
+            color: #2196F3;/* #0288D1;*/
             z-index: 100;
 
 
@@ -54,14 +61,17 @@
         .numUsers {
             /*float:right;*/
             position:absolute;
-            right: 15px;
-            top: 55px;
+            right: 0;
+            left:0;
+            top: 38px;
             font-family: 'Roboto';
             font-weight: 100;
-            font-size: 35px;
-            text-transform: uppercase;
+            font-size: 17px;
+            text-transform: lowercase;
             color:black;
             z-index: 100;
+
+
             /*font-style: italic;*/
 
 
@@ -139,6 +149,21 @@
             padding-bottom:35px;
             z-index: 100;
             box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .round {
+            background-color:white;
+            color:#2196F3;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            position:absolute;
+            top:0;
+            height: 10px;
+            width: 60%;
+            margin: 0 auto;
+            right:0;
+            left:0;
 
         }
 
@@ -639,7 +664,7 @@
     <body ontouchstart="" style="background-color: rgb(33,33,33);">
    
    <div class="header dark">
-        <h1 class="usRoom"><img src="../img/play-video.png" style="height: 45px; margin-top: -5px; display:inline-block;"/>&nbsp; PartySync</h1>
+        <h1 class="usRoom"><img src="../img/play-video.png" style="height: 45px; margin-top: -5px; display:inline-block;"/></h1>
         <h1 class="socialStuff">
             <img src="http://www.gautam.cc/img/social/google+@2x.png" class="social"/>
             <img src="http://www.gautam.cc/img/social/twitter@2x.png" class="social"/>
@@ -647,10 +672,10 @@
         </h1>
 
     </div>
-    <div class="header">
-        <h1 class="tapRoom">#STACKED</h1>
+    <div class="header round">
+        <h1 class="tapRoom">Loading</h1>
         <div class="partyGoers"></div>
-        <h1 class="numUsers">0</h1>
+        <h1 class="numUsers">0 Watchers</h1>
 
     </div>
         <!--[if lt IE 7]>

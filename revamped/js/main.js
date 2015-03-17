@@ -619,7 +619,7 @@ db_numUsers.on('value', function (sNum) {
     
   });
 
-  $(".numUsers").text(num_users);
+  $(".numUsers").text(num_users + ' watchers');
 });
 
 
