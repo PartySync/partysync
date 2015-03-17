@@ -470,15 +470,26 @@ $("#chatBoxInput").focus(function() {
       if (evt.which == 13) {
         var chat_text = document.getElementById("chatBoxInput").value;
         document.getElementById("chatBoxInput").value = "";
-        
+
         if (isHTML(chat_text)) {
           chat_text = jQuery(stripScripts(chat_text)).text();
         }
 
+        // console.log(chat_text.substring(0, 5));
+        
+
 
         if (chat_text.length > 0) {
           // db_chat.push(chat_text);
-          db_chat.push("<b>A"+user_id+": </b>" + chat_text + "<br />");
+          // commands
+          if (chat_text.substring(0, 5) == "/name") {
+            chat_name = chat_text.substring(6, chat_text.length);
+          } else if (typeof chat_name !== "undefined" && /\S/.test(chat_name)) {
+            db_chat.push("<b>"+chat_name+": </b>" + chat_text + "<br />");
+          } else {
+            db_chat.push("<b>A"+user_id+": </b>" + chat_text + "<br />");
+          }
+          
           // db_chat.push("<b>A"+user_id+": </b>" + chat_text + "<br />");
         
         }
