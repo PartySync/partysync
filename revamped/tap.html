@@ -79,16 +79,30 @@
 
         .partyGoers {
             height: 60px;
-            width: 60%;
+            width: 30%;
+            position:relative;
             background-color:transparent;
             position:absolute;
-            top: 70px;
+            top: 10px;
+            /*border: 1px solid red;*/
             /*padding-top:35px;*/
             /*padding-bottom: 35px;*/
             /*margin-right: 50%;*/
-            left: 30%;
+            /*left: 30%;*/
             text-align: left;
         }
+
+   /*     .partyGoers .right {
+            height: 60px;
+            width: 30%;
+            position:relative;
+            background-color:transparent;
+            position:absolute;
+            top: 10px;
+            border: 1px solid red;
+
+            text-align: left;
+        } */
 
         .partyGoers img {
             height: 35px;
@@ -155,11 +169,13 @@
         .round {
             background-color:white;
             color:#2196F3;
+            padding:0;
+
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
             position:absolute;
             top:0;
-            height: 10px;
+            height: 78px;
             width: 60%;
             margin: 0 auto;
             right:0;
@@ -307,11 +323,12 @@
             padding-top: 1px;
             padding-bottom: 15px;
             width: 98%;
+            border-radius: 3px;
             box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
 
         .change {
-            border-radius: 50%;
+            /*border-radius: 50%;*/
 
 
         }
@@ -319,7 +336,8 @@
 
         .change:hover {
             cursor: pointer;
-            box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+            /*-webkit-filter: contrast(160%);*/
+            /*box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);*/
         }
 
         .queueArea {
@@ -645,6 +663,10 @@
 
                 }
 
+                #particles-js{
+  /*height:100%;*/
+  /*background:#b61924*/
+}
                 #search:focus {
                     outline:none;
                     border: 1px solid #16a085;
@@ -659,9 +681,123 @@
                     vertical-align: middle;
                 }
 
+                canvas{
+                    display:block;
+                    vertical-align:bottom;
+                }
+
+                @-webkit-keyframes bounceInDown {
+                    0% {
+                        opacity: 0;
+                        -webkit-transform: translateY(-2000px);
+                    }
+                    
+                    60% {
+                        opacity: 1;
+                        -webkit-transform: translateY(30px);
+                    }
+                    
+                    80% {
+                        -webkit-transform: translateY(-10px);
+                    }
+                    
+                    100% {
+                        -webkit-transform: translateY(0);
+                    }
+                }
+
+                @-moz-keyframes bounceInDown {
+                    0% {
+                        opacity: 0;
+                        -moz-transform: translateY(-2000px);
+                    }
+                    
+                    60% {
+                        opacity: 1;
+                        -moz-transform: translateY(30px);
+                    }
+                    
+                    80% {
+                        -moz-transform: translateY(-10px);
+                    }
+                    
+                    100% {
+                        -moz-transform: translateY(0);
+                    }
+                }
+
+                @-o-keyframes bounceInDown {
+                    0% {
+                        opacity: 0;
+                        -o-transform: translateY(-2000px);
+                    }
+                    
+                    60% {
+                        opacity: 1;
+                        -o-transform: translateY(30px);
+                    }
+                    
+                    80% {
+                        -o-transform: translateY(-10px);
+                    }
+                    
+                    100% {
+                        -o-transform: translateY(0);
+                    }
+                }
+
+                @keyframes bounceInDown {
+                    0% {
+                        opacity: 0;
+                        transform: translateY(-2000px);
+                    }
+                    
+                    60% {
+                        opacity: 1;
+                        transform: translateY(30px);
+                    }
+                    
+                    80% {
+                        transform: translateY(-10px);
+                    }
+                    
+                    100% {
+                        transform: translateY(0);
+                    }
+                }
+
+                .bounceInDown {
+                    -webkit-animation-name: bounceInDown;
+                    -moz-animation-name: bounceInDown;
+                    -o-animation-name: bounceInDown;
+                    animation-name: bounceInDown;
+                }
+
+                .animated {
+                    -webkit-animation-fill-mode: both;
+                    -moz-animation-fill-mode: both;
+                    -ms-animation-fill-mode: both;
+                    -o-animation-fill-mode: both;
+                    animation-fill-mode: both;
+                    -webkit-animation-duration: 1s;
+                    -moz-animation-duration: 1s;
+                    -ms-animation-duration: 1s;
+                    -o-animation-duration: 1s;
+                    animation-duration: 1s;
+                }
+
+                .animated.hinge {
+                    -webkit-animation-duration: 2s;
+                    -moz-animation-duration: 2s;
+                    -ms-animation-duration: 2s;
+                    -o-animation-duration: 2s;
+                    animation-duration: 2s;
+                }
+
+
         </style>
     </head>
-    <body ontouchstart="" style="background-color: rgb(33,33,33);">
+    <body ontouchstart="" style="background-color: rgb(33,33,33);" id="particles-js2">
    
    <div class="header dark">
         <h1 class="usRoom"><img src="../img/play-video.png" style="height: 45px; margin-top: -5px; display:inline-block;"/></h1>
@@ -672,8 +808,9 @@
         </h1>
 
     </div>
-    <div class="header round">
+    <div class="header round animated bounceInDown" id="particles-js">
         <h1 class="tapRoom">Loading</h1>
+        <div class="partyGoers"></div>
         <div class="partyGoers"></div>
         <h1 class="numUsers">0 Watchers</h1>
 
@@ -687,7 +824,7 @@
         <div class="main">
 
         <div class="mcTitle" style="position:relative;">
-            <img src="img/back.png" id="back" class="change" style="float:left;position:absolute; height:40px; top: 30px; left: 20px;"/>
+            <!-- <img src="img/back.png" id="back" class="change" style="float:left;position:absolute; height:40px; top: 30px; left: 20px;"/> -->
             <h2 id="songName">Oh No!</h2>
             <span id="artistName">It Looks Like There's Nothing in The Queue</span> | <span id="views">Add a Video!</span>
             <img src="img/skip.png" id="skip" class="change" style="float:right;position:absolute; height:40px; top: 30px; right: 20px;"/>
@@ -759,6 +896,7 @@
         <script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
         <script src="http://www.youtube.com/player_api"></script>
         <script src="../js/plugins.js"></script>
+        <script src="http://vincentgarreau.com/particles.js/particles.js"></script>
         <script src="../js/main.js"></script>
 
 
