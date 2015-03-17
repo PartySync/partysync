@@ -8,6 +8,8 @@ dotenv.load(); // load environment variables
 var express = require('express');
 var app = express();
 
+var request = require('request');
+
 var Keen = require("keen.io");
 var client = Keen.configure({
     projectId: process.env.KEEN_PROJECT_ID,
@@ -37,16 +39,25 @@ app.get('/', function (req, res) {
 
 
 app.get('/:party_name', function (req, res) {
+	var ip = req.connection.remoteAddress;
+
 	console.log(req.param("party_name").toLowerCase());
 	var id = req.param("party_name").toLowerCase();
 
-	client.addEvent("basic", {"room_name": id}, function(err, res) {
-	    if (err) {
-	        console.log("Oh no, an error!");
-	    } else {
-	        console.log("Hooray, it got logged!");
-	    }
+	request('http://ip-api.com/json/'+ip, function (err, response, body) {
+		var ipData = JSON.parse(body);
+		var location = ipData.city + ", " + ipData.region + ", " + ipData.country +" "+ipData.zip;
+		console.log(location);
+
+		client.addEvent("basic", {"room_name": id, "location": location}, function(err, res) {
+		    if (err) {
+		        console.log("Oh no, an error!");
+		    } else {
+		        console.log("Hooray, it got logged!");
+		    }
+		});
 	});
+
 
 
 
