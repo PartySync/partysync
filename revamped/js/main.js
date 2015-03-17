@@ -36,6 +36,36 @@ var db_numUsers = new Firebase('https://youparty.firebaseio.com/'+ room.toUpperC
 // }
 
 
+// Extra code to remove any HTML or JavaScript a user might try to embed within their chat messages
+function strip(html)
+{
+   var tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent || tmp.innerText || "";
+}
+
+
+function stripScripts(s) {
+  var div = document.createElement('div');
+  div.innerHTML = s;
+  var scripts = div.getElementsByTagName('script');
+  var i = scripts.length;
+  while (i--) {
+    scripts[i].parentNode.removeChild(scripts[i]);
+  }
+  return div.innerHTML;
+}
+
+
+function isHTML(str) {
+    var a = document.createElement('div');
+    a.innerHTML = str;
+    for (var c = a.childNodes, i = c.length; i--; ) {
+        if (c[i].nodeType == 1) return true; 
+    }
+    return false;
+}
+
 
 
 var player;
@@ -441,11 +471,15 @@ $("#chatBoxInput").focus(function() {
         var chat_text = document.getElementById("chatBoxInput").value;
         document.getElementById("chatBoxInput").value = "";
         
+        if (isHTML(chat_text)) {
+          chat_text = jQuery(stripScripts(chat_text)).text();
+        }
 
 
         if (chat_text.length > 0) {
           // db_chat.push(chat_text);
-          db_chat.push("<b>A"+user_id+": </b>" + chat_text + "<br />")
+          db_chat.push("<b>A"+user_id+": </b>" + chat_text + "<br />");
+          // db_chat.push("<b>A"+user_id+": </b>" + chat_text + "<br />");
         
         }
 
@@ -633,6 +667,9 @@ setInterval(function() {
 setInterval(function() {
   emojify.run(document.getElementById('chatBox')); // Emojis :)
 }, 100);
+
+
+
 
 
   
