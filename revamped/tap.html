@@ -41,12 +41,12 @@
         .tapRoom {
             font-family: 'Roboto Condensed';
             font-weight: 700;
-            font-size: 35px;
+            font-size: 32px;
             position: absolute;
             margin-left: auto;
             margin-right: auto;
             left: 0px;
-            top: -15px;
+            top: -19px;
             text-align:center;
             width:100%;
 
@@ -63,12 +63,12 @@
             position:absolute;
             right: 0;
             left:0;
-            top: 38px;
+            top: 28px;
             font-family: 'Roboto';
             font-weight: 100;
             font-size: 17px;
             text-transform: lowercase;
-            color:black;
+            color:white;
             z-index: 100;
 
 
@@ -257,10 +257,11 @@
         #queue {
             /*border: 1px solid black;*/
             /*width: 48%;*/
-            background-color:white;
+            background-color:rgb(18, 19, 20);
             height: 420px;
             position:relative;
             border-radius: 2px;
+            color:white;
             box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
             /*overflow: scroll;*/
         }
@@ -268,10 +269,11 @@
         #chatBox {
             /*border: 1px solid black;*/
             /*width: 48%;*/
-            background-color:white;
+            background-color:rgb(18, 19, 20);
             height: 420px;
             position:relative;
             border-radius:2px;
+            color:white;
             box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
 
@@ -289,6 +291,7 @@
             position:absolute;
             left:0px;
             top: 50px;
+            background-color: rgb(33,33,33);
             /*padding-bottom: 10px;*/
         }
 
@@ -296,34 +299,53 @@
             line-height: 100%;
             font-family: 'Roboto';
             font-weight: 100;
-            color:#D32F2F;
-
+            font-size: 22px;
+            float:left;
+            margin-left: 15px;
+            margin-top: 12px;
+            color:white; /* #D32F2F; */
+            display: inline-block;
             /*padding-bottom: 0px;*/
         }
 
+        #songTile {
+            display: inline-block;
+            height: 70px;
+            /*position: absolute;*/
+            float:left;
+            margin-left: 10px;
+        }
+
         #artistName {
-            margin-top: -15px;
+            /*margin-top: 0px;*/
             font-family: 'Roboto';
-            color:black;
+            color:white;
             font-weight: 700;
             line-height: 100%;
+            float:left;
+            top: 38px;
+            left: 118px;
+            /*margin-top: 15px;*/
+            /*margin-left: -15px;*/
+            position:absolute;
+
         }
 
         #views {
-            margin-top: -15px;
+            /*margin-top: -15px;*/
             font-family: 'Roboto';
-            color: black;
+            color: white;
             font-weight: 300;
             line-height: 100%;
         }
 
         .mcTitle {
-            margin-top: 15px;
-            background-color: white;
-            padding-top: 1px;
-            padding-bottom: 15px;
-            width: 98%;
-            border-radius: 3px;
+            color:white;
+            position:absolute;
+            background-color:black; /*white;*/
+            width: 100%;
+            z-index: 100;
+            bottom: 0;
             box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
 
@@ -348,7 +370,7 @@
 
 
         .queueCard {
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 3px;
             text-align: left;
             margin-top:4px;
@@ -358,7 +380,7 @@
         }
 
         .queueCard b {
-            color:#D32F2F;
+            color:rgb(255, 195, 0);
         }
 
         .addButton {
@@ -389,8 +411,13 @@
         #chatBoxInput {
             width: 95%;
             height:19px;
-            border-radius: 2px;
-            border: 1px solid rgba(0, 0, 0, 0.2);
+            /*border-radius: 2px;*/
+            /*border: 1px solid rgba(0, 0, 0, 0.2);*/
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 1px solid rgb(255, 195, 0);
+            background-color:rgb(33, 33, 33);
             padding: 4px;
             font-family: 'Roboto';
             font-weight: 300;
@@ -405,7 +432,7 @@
 
         #chatBoxInput:focus {
             outline: none;
-            border: 1px solid #16a085;
+            color: rgb(255, 195, 0);
 
         }
         
@@ -417,6 +444,7 @@
             font-weight: 300;
             color:black;
             word-wrap: break-word;
+            color:white;
         }
 
                         /**
@@ -794,6 +822,10 @@
                     animation-duration: 2s;
                 }
 
+                .chat_id_name {
+                    color: rgb(255, 195, 0)
+                }
+
 
         </style>
     </head>
@@ -801,6 +833,10 @@
    
    <div class="header dark">
         <h1 class="usRoom"><img src="../img/play-video.png" style="height: 45px; margin-top: -5px; display:inline-block;"/></h1>
+
+        <h1 class="tapRoom">Loading</h1>
+        <h1 class="numUsers">0 Watchers</h1>
+
         <h1 class="socialStuff">
             <img src="http://www.gautam.cc/img/social/google+@2x.png" class="social"/>
             <img src="http://www.gautam.cc/img/social/twitter@2x.png" class="social"/>
@@ -808,13 +844,21 @@
         </h1>
 
     </div>
-    <div class="header round animated bounceInDown" id="particles-js">
-        <h1 class="tapRoom">Loading</h1>
-        <div class="partyGoers"></div>
-        <div class="partyGoers"></div>
-        <h1 class="numUsers">0 Watchers</h1>
 
-    </div>
+   <!--  <div class="header round animated bounceInDown" id="particles-js">
+        
+
+    </div> -->
+
+    <div class="mcTitle">
+            <!-- <img src="img/back.png" id="back" class="change" style="float:left;position:absolute; height:40px; top: 30px; left: 20px;"/> -->
+            <img src="http://placehold.it/480x360" id="songTile"/>
+            <h2 id="songName">Oh No!</h2><br />
+            <span id="artistName">It Looks Like There's Nothing in The Queue</span>
+            <img src="img/skip.png" id="skip" class="change" style="float:right;position:absolute; height:40px; top: 30px; right: 20px;"/>
+        </div>
+
+
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -823,12 +867,12 @@
         <center>
         <div class="main">
 
-        <div class="mcTitle" style="position:relative;">
-            <!-- <img src="img/back.png" id="back" class="change" style="float:left;position:absolute; height:40px; top: 30px; left: 20px;"/> -->
+<!--         <div class="mcTitle" style="position:relative;">
+          
             <h2 id="songName">Oh No!</h2>
             <span id="artistName">It Looks Like There's Nothing in The Queue</span> | <span id="views">Add a Video!</span>
             <img src="img/skip.png" id="skip" class="change" style="float:right;position:absolute; height:40px; top: 30px; right: 20px;"/>
-        </div>
+        </div> -->
            
             <span class="content half" style="float:left;">
                 <div id="mainVideo"></div>
