@@ -116,6 +116,9 @@ function onYouTubePlayerAPIReady() {
                               player.loadVideoById(snapshot.val()[keys], 0, "large");
                               event.target.playVideo();
 
+
+                              
+
                               updateVideoInfo(snapshot.val()[keys]);
 
                           }
@@ -349,6 +352,9 @@ function updateVideoInfo(id) {
   $.getJSON('http://gdata.youtube.com/feeds/api/videos/'+id+'?v=2&alt=jsonc', function (data) {
     $("#songName").text(data.data.title);
     $("#views").text(numeral(data.data.viewCount).format('0,0') + " Views");
+
+    document.getElementById("bgImgAwesome").style.backgroundImage = "url('http://i.ytimg.com/vi/"+ id +"/hqdefault.jpg')";
+
     $.get('https://gdata.youtube.com/feeds/api/users/'+data.data.uploader+'?v=2.1', function (xmlData) {
         // alert(data);
         $xml = $(xmlData),
@@ -376,9 +382,11 @@ function displayQueue() {
           url: 'http://gdata.youtube.com/feeds/api/videos/'+dataSnapVids.val()+'?v=2&alt=jsonc',
           async: false,
           success : function(data) {
+            // console.log(data.data);
+
               var songTitle = data.data.title;
               var views = numeral(data.data.viewCount).format('0,0') + " views";
-              htmlD += '<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>';
+              htmlD += '<div class="queueCard"><b>'+songTitle+'</b> <span style="float:right;">'+views+'</span><br/></div>';
 
               $("#queueArea").html(htmlD);
           }
