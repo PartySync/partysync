@@ -275,8 +275,13 @@
             /*border: 1px solid black;*/
             /*width: 48%;*/
             background-color:rgb(18, 19, 20);
-            height: 420px;
-            position:relative;
+            height: 100%;
+            position:absolute;
+            right:5px;
+            top: 50px;
+            width:300px;
+
+            /*position:relative;*/
             border-radius:2px;
             color:white;
             box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -422,6 +427,11 @@
             padding: 4px;
             font-family: 'Roboto';
             font-weight: 300;
+            position:relative;
+            margin-top: 4px;
+            /*bottom: 70px;*/
+            /*top: 90%;*/
+            /*left: 3px;*/
         }
 
         input {
@@ -438,6 +448,7 @@
         }
         
         #chaatArea {
+            margin-top: 5px;
             text-align: left;
             padding-left: 10px;
             padding-right: 10px;
@@ -446,6 +457,7 @@
             color:black;
             word-wrap: break-word;
             color:white;
+            /*height: 100%;*/
         }
 
                         /**
@@ -854,8 +866,8 @@
     <div class="mcTitle">
             <!-- <img src="img/back.png" id="back" class="change" style="float:left;position:absolute; height:40px; top: 30px; left: 20px;"/> -->
             <img src="http://placehold.it/480x360" id="songTile"/>
-            <h2 id="songName">Oh No!</h2><br />
-            <span id="artistName">It Looks Like There's Nothing in The Queue</span>
+            <h2 id="songName">Loading...</h2><br />
+            <span id="artistName">Loading...</span>
             <img src="img/pause-icon.png" id="pausePlay" class="change" style="float:right;position:absolute; height:40px; top: 15px; right: 70px;"/>
             <img src="img/skip.png" id="skip" class="change" style="float:right;position:absolute; height:40px; top: 15px; right: 20px;"/>
         </div>
@@ -902,17 +914,21 @@
 
                 </span>
 
-                <span class="content half" id="chatBox" style="float:right; margin-top: 20px;">
-                    <h4>CHAT</h4>
-                    <hr class="cardDivider" />
-                    <div style="overflow:scroll; position:relative; height: 310px; padding-bottom: 5px;" id="chaatArea">
-                            
-                    </div>
-                    <input type="text" id="chatBoxInput" placeholder="Type message here..."/>
-                </span>
+
             </span>
 
         </div> <!-- end MAIN -->
+
+
+        <span id="chatBox" style="float:right; margin-top: 20px;">
+            <!-- <h4>CHAT</h4> -->
+            <input type="text" id="chatBoxInput" placeholder="Type chat message here..."/>
+            <!-- <hr class="cardDivider" /> -->
+            <div style="overflow:scroll; position:relative; height: 50%; padding-bottom: 5px;" id="chaatArea">
+                    
+            </div>
+            
+        </span>
 
         <!-- <div id="modal">
             <div class="modal-content">
