@@ -136,12 +136,13 @@ function onYouTubePlayerAPIReady() {
   
             } else if (event.data === 1) { // IF VIDEO IS PLAYING
               db_pause.set('playing');
+              document.getElementById("pausePlay").src = "img/pause-icon.png";
 
 
 
             } else if (event.data === 2) { // IF VIDEO IS PAUSED
               db_pause.set('paused');
-
+              document.getElementById("pausePlay").src = "img/play-icon.png";
 
             } // END VIDEO PAUSED/PLAYING CONDITIONAL
         }
@@ -551,6 +552,14 @@ db_pause.on('value', function (sPause) {
     player.pauseVideo();
   }
 
+});
+
+$("#pausePlay").click(function() {
+  if (player.getPlayerState() == 1) { // video is currently playing
+    player.pauseVideo();
+  } else {
+    player.playVideo();
+  }
 });
 
 
