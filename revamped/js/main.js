@@ -384,6 +384,9 @@ function displayQueue() {
 
               var songTitle = data.items[0].snippet.title;
               var views = numeral(data.items[0].statistics.viewCount).format('0,0') + " views";
+
+              var thumb = "http://i.ytimg.com/vi/"+ dataSnapVids.val() +"/hqdefault.jpg";
+
               htmlD += '<div class="queueCard"><b>'+songTitle+'</b><br /> <span style="float:left;">'+views+'</span><br/></div>';
 
               $("#queueArea").html(htmlD);
