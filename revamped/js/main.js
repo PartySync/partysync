@@ -349,21 +349,19 @@ $("#skip").click(function() {
 
 
 function updateVideoInfo(id) {
-  $.getJSON('http://gdata.youtube.com/feeds/api/videos/'+id+'?v=2&alt=jsonc', function (data) {
-    $("#songName").text(data.data.title);
-    $("#views").text(numeral(data.data.viewCount).format('0,0') + " Views");
+  $.getJSON('https://www.googleapis.com/youtube/v3/videos?id='+id+'&key=AIzaSyAXIp7RY8GSt2JctHmqSFtmM-fn71hgtwA&part=snippet,contentDetails,statistics', function (data) {
+    $("#songName").text(data.items[0].snippet.title);
+    $("#views").text(numeral(data.items[0].statistics.viewCount).format('0,0') + " Views");
 
     document.getElementById("bgImgAwesome").style.backgroundImage = "url('http://i.ytimg.com/vi/"+ id +"/hqdefault.jpg')";
 
-    $.get('https://gdata.youtube.com/feeds/api/users/'+data.data.uploader+'?v=2.1', function (xmlData) {
-        // alert(data);
-        $xml = $(xmlData),
-        $title = $xml.find("title");
-        $("#artistName").text($title.text());
 
-        document.getElementById("songTile").src = "http://i.ytimg.com/vi/"+ id +"/hqdefault.jpg";
+    $("#artistName").text(data.items[0].snippet.channelTitle);
 
-    });
+
+    document.getElementById("songTile").src = data.items[0].snippet.thumbnails.high.url;
+
+
   });
 }
 
@@ -379,14 +377,14 @@ function displayQueue() {
 
       $.ajax({
           type: "GET",
-          url: 'http://gdata.youtube.com/feeds/api/videos/'+dataSnapVids.val()+'?v=2&alt=jsonc',
+          url: 'https://www.googleapis.com/youtube/v3/videos?id='+dataSnapVids.val()+'&key=AIzaSyAXIp7RY8GSt2JctHmqSFtmM-fn71hgtwA&part=snippet,contentDetails,statistics',
           async: false,
           success : function(data) {
             // console.log(data.data);
 
-              var songTitle = data.data.title;
-              var views = numeral(data.data.viewCount).format('0,0') + " views";
-              htmlD += '<div class="queueCard"><b>'+songTitle+'</b> <span style="float:right;">'+views+'</span><br/></div>';
+              var songTitle = data.items[0].snippet.title;
+              var views = numeral(data.items[0].statistics.viewCount).format('0,0') + " views";
+              htmlD += '<div class="queueCard"><b>'+songTitle+'</b><br /> <span style="float:left;">'+views+'</span><br/></div>';
 
               $("#queueArea").html(htmlD);
           }
