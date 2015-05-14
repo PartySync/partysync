@@ -1,0 +1,868 @@
+  /*      .content {
+            text-align: center;
+            margin-top: 10%;   
+            position:relative;
+            margin:auto;
+        }*/
+
+
+
+        body {
+            overflow:hidden;
+            /*position:relative;*/
+            
+
+          /*-webkit-filter: blur(5px);*/
+          /*-moz-filter: blur(5px);*/
+          /*-o-filter: blur(5px);*/
+          /*-ms-filter: blur(5px);*/
+          /*filter: blur(5px);*/
+        }
+
+        #bgImgAwesome {
+            background-repeat:none;
+            background-size: 110%;
+            background-position: -50px;
+            position:absolute;
+            /*top: 0;*/
+            /*left: 0;*/
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            -webkit-filter: blur(15px) brightness(30%);
+            -moz-filter: blur(15px) brightness(30%);
+            -o-filter: blur(15px) brightness(30%);
+            -ms-filter: blur(15px) brightness(30%);
+            filter: blur(15px) brightness(30%);
+         
+        }
+
+        .tapRoom {
+            font-family: 'Roboto Condensed';
+            font-weight: 700;
+            font-size: 32px;
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0px;
+            top: -19px;
+            text-align:center;
+            width:100%;
+
+            text-transform: uppercase;
+            font-style: italic;
+            color: #2196F3;/* #0288D1;*/
+            z-index: 100;
+
+
+        }
+
+        .numUsers {
+            /*float:right;*/
+            position:absolute;
+            right: 0;
+            left:0;
+            top: 28px;
+            font-family: 'Roboto';
+            font-weight: 100;
+            font-size: 17px;
+            text-transform: lowercase;
+            color:white;
+            z-index: 100;
+
+
+            /*font-style: italic;*/
+
+
+        }
+
+        .partyGoers {
+            height: 60px;
+            width: 30%;
+            position:relative;
+            background-color:transparent;
+            position:absolute;
+            top: 10px;
+            /*border: 1px solid red;*/
+            /*padding-top:35px;*/
+            /*padding-bottom: 35px;*/
+            /*margin-right: 50%;*/
+            /*left: 30%;*/
+            text-align: left;
+        }
+
+   /*     .partyGoers .right {
+            height: 60px;
+            width: 30%;
+            position:relative;
+            background-color:transparent;
+            position:absolute;
+            top: 10px;
+            border: 1px solid red;
+
+            text-align: left;
+        } */
+
+        .partyGoers img {
+            height: 35px;
+            position:absolute;
+        }
+
+        .usRoom {
+            font-family: 'Roboto';
+            font-weight: 100;
+            font-size: 35px;
+            position: absolute;
+            left: 15px;
+            top: -15px;
+            /*text-transform: uppercase;*/
+            /*font-style: italic;*/
+            color:#FFC107;
+
+
+        }
+
+        .socialStuff {
+            position:absolute;
+            right: 15px;
+            top: -15px;
+            font-family: 'Roboto';
+            font-weight: 100;
+            font-size: 35px;
+            color:#FFC107;
+            /*text-transform: uppercase;*/
+        }
+
+        .social{
+            height: 45px;
+            padding-left: 2px;
+            padding-right: 2px;
+            -webkit-filter: grayscale(0%);
+            -moz-filter: grayscale(0%);
+            filter: grayscale(0%);
+            -webkit-transition: all 0.1s linear;
+            -moz-transition: all 0.1s linear;
+            -o-transition: all 0.1s linear;
+            -ms-transition: all 0.1s linear;
+
+          }
+
+          .social:hover {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            filter: grayscale(100%);
+            cursor: pointer;
+          }
+
+        .header {
+            background-color:#FFC107; /*white;*/
+            width: 100%;
+            /*position:relative;*/
+            padding-top:35px;
+            padding-bottom:35px;
+            z-index: 100;
+            box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .round {
+            background-color:white;
+            color:#2196F3;
+            padding:0;
+
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            position:absolute;
+            top:0;
+            height: 78px;
+            width: 60%;
+            margin: 0 auto;
+            right:0;
+            left:0;
+
+        }
+
+        .dark {
+            background-color:black;
+        }
+
+
+
+        .half {
+            width: 47%;
+            display: inline-block;
+            text-align: center;
+            padding-left: 1%;
+            padding-right: 1%;
+            /*position:absolute;*/
+            /*top: 0px;*/
+        }
+
+        #tapper {
+            width: 240px;
+            -webkit-transition: all 0.05s linear;
+            -moz-transition: all 0.05s linear;
+            -o-transition: all 0.05s linear;
+            -ms-transition: all 0.05s linear;
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+
+        }
+
+        #tapper:active {
+            width: 220px;
+        }
+
+
+        * {
+            /*line-height: 1.5;*/
+            margin: 0;
+        }
+        html {
+            color: #888;
+            /*font-family: sans-serif;*/
+            text-align: center;
+        }
+
+
+        h1 {
+            color: #555;
+            font-size: 60px;
+            font-weight: 100;
+            font-family: 'Roboto';
+        }
+        p {
+            line-height: 1.2;
+        }
+        @media only screen and (max-width: 270px) {
+            body {
+                margin: 10px auto;
+                position: static;
+                width: 95%;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+
+        #mainVideo {
+            margin-top: 20px;
+            width: 50%;
+            display: inline-block;
+        }
+
+        #queue {
+            /*border: 1px solid black;*/
+            /*width: 48%;*/
+            background-color:rgb(18, 19, 20);
+            height: 100%;
+            position:absolute;
+            top:50px;
+            left: 1px;
+            width:300px;
+
+            border-radius: 2px;
+            color:white;
+            box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+            /*overflow: scroll;*/
+        }
+
+        #chatBox {
+            /*border: 1px solid black;*/
+            /*width: 48%;*/
+            background-color:rgb(18, 19, 20);
+            height: 100%;
+            position:absolute;
+            right:1px;
+            top: 50px;
+            width:300px;
+
+            /*position:relative;*/
+            border-radius:2px;
+            color:white;
+            box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        h4 {
+            font-family: 'Roboto Condensed';
+            color: #2196F3;
+            text-transform: uppercase;
+            line-height: 100%;
+            font-size: 20px;
+            /*margin-top: px;*/
+        }
+
+        .cardDivider {
+            width:100%;
+            position:absolute;
+            left:0px;
+            top: 50px;
+            background-color: rgb(33,33,33);
+            /*padding-bottom: 10px;*/
+        }
+
+        h2 {
+            line-height: 100%;
+            font-family: 'Roboto';
+            font-weight: 100;
+            font-size: 22px;
+            float:left;
+            margin-left: 15px;
+            margin-top: 12px;
+            color:white; /* #D32F2F; */
+            display: inline-block;
+            /*padding-bottom: 0px;*/
+        }
+
+        #songTile {
+            display: inline-block;
+            height: 70px;
+            /*position: absolute;*/
+            float:left;
+            margin-left: 10px;
+        }
+
+        #artistName {
+            /*margin-top: 0px;*/
+            font-family: 'Roboto';
+            color:white;
+            font-weight: 700;
+            line-height: 100%;
+            float:left;
+            top: 38px;
+            left: 118px;
+            /*margin-top: 15px;*/
+            /*margin-left: -15px;*/
+            position:absolute;
+
+        }
+
+        #views {
+            /*margin-top: -15px;*/
+            font-family: 'Roboto';
+            color: white;
+            font-weight: 300;
+            line-height: 100%;
+        }
+
+        .mcTitle {
+            color:white;
+            position:absolute;
+            background-color:black; /*white;*/
+            width: 100%;
+            z-index: 100;
+            bottom: 0;
+            box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+
+        .change:hover {
+            cursor: pointer;
+            /*-webkit-filter: contrast(160%);*/
+            /*box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);*/
+        }
+
+        .queueArea {
+            /*height: 10px;*/
+            /*width: 10px;*/
+            overflow: scroll;
+        }
+
+
+        .queueCard {
+            /*border: 1px solid rgba(255, 255, 255, 0.1);*/
+            /*border-radius: 3px;*/
+            border-bottom: 1px solid rgb(255, 195, 0);
+            border-top: 0;
+            /*border-bottom: 1px solid rgb(255, 195, 0);*/
+            border-left: 0;
+            border-right: 0;
+            text-align: left;
+            /*margin-top:4px;*/
+            padding: 12px;
+            font-family: 'Roboto';
+            font-weight: 300;
+        }
+
+        .queueCard b {
+            color:rgb(255, 195, 0);
+        }
+
+        .queueCard .info {
+            width: 70%;
+            float:right;
+        }
+
+        .queueCard img {
+            width:20%;
+        }
+
+        .addButton {
+            border: 1px solid rgb(225, 165, 0);
+            border-radius: 3px;
+            text-align: center;
+            /*margin-top:10px;*/
+            padding: 12px;
+            font-family: 'Roboto';
+            font-weight: 300;
+            color:white;
+            background-color: rgb(255, 195, 0);;
+            box-shadow: 0px 5px 0px 0px rgb(225, 165, 0);
+            margin-bottom: 10px;
+            /*position:absolute;*/
+        }
+
+        .addButton:hover {
+            margin-top: 0px;
+            box-shadow: 0px 2px 0px 0px rgb(225, 165, 0);
+        }
+
+        .addButton:active {
+            margin-top: 0px;
+            box-shadow: 0px 0px 0px 0px #16a085;
+        }
+
+        #chatBoxInput {
+            width: 95%;
+            height:19px;
+            /*border-radius: 2px;*/
+            /*border: 1px solid rgba(0, 0, 0, 0.2);*/
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 1px solid rgb(255, 195, 0);
+            background-color:rgb(33, 33, 33);
+            padding: 4px;
+            font-family: 'Roboto';
+            font-weight: 300;
+            position:relative;
+            margin-top: 4px;
+            /*bottom: 70px;*/
+            /*top: 90%;*/
+            /*left: 3px;*/
+        }
+
+        input {
+            -webkit-transition: all 0.1s linear;
+            -moz-transition: all 0.1s linear;
+            -o-transition: all 0.1s linear;
+            -ms-transition: all 0.1s linear;
+        }
+
+        #chatBoxInput:focus {
+            outline: none;
+            color: rgb(255, 195, 0);
+
+        }
+        
+        #chaatArea {
+            margin-top: 5px;
+            text-align: left;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-family: 'Roboto';
+            font-weight: 300;
+            color:black;
+            word-wrap: break-word;
+            color:white;
+            /*height: 100%;*/
+        }
+
+                        /**
+                 * Tooltips!
+                 */
+
+                /* Base styles for the element that has a tooltip */
+                [data-tooltip],
+                .tooltip {
+                  position: relative;
+                  cursor: pointer;
+                }
+
+                /* Base styles for the entire tooltip */
+                [data-tooltip]:before,
+                [data-tooltip]:after,
+                .tooltip:before,
+                .tooltip:after {
+                  position: absolute;
+                  visibility: hidden;
+                  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+                  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                  opacity: 0;
+                  -webkit-transition: 
+                      opacity 0.2s ease-in-out,
+                        visibility 0.2s ease-in-out,
+                        -webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+                    -moz-transition:    
+                        opacity 0.2s ease-in-out,
+                        visibility 0.2s ease-in-out,
+                        -moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+                    transition:         
+                        opacity 0.2s ease-in-out,
+                        visibility 0.2s ease-in-out,
+                        transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+                  -webkit-transform: translate3d(0, 0, 0);
+                  -moz-transform:    translate3d(0, 0, 0);
+                  transform:         translate3d(0, 0, 0);
+                  pointer-events: none;
+                }
+
+                /* Show the entire tooltip on hover and focus */
+                [data-tooltip]:hover:before,
+                [data-tooltip]:hover:after,
+                [data-tooltip]:focus:before,
+                [data-tooltip]:focus:after,
+                .tooltip:hover:before,
+                .tooltip:hover:after,
+                .tooltip:focus:before,
+                .tooltip:focus:after {
+                  visibility: visible;
+                  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+                  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+                  opacity: 1;
+                }
+
+                /* Base styles for the tooltip's directional arrow */
+                .tooltip:before,
+                [data-tooltip]:before {
+                  z-index: 1001;
+                  border: 6px solid transparent;
+                  background: transparent;
+                  content: "";
+                }
+
+                /* Base styles for the tooltip's content area */
+                .tooltip:after,
+                [data-tooltip]:after {
+                  z-index: 1000;
+                  padding: 8px;
+                  width: 160px;
+                  background-color: #000;
+                  background-color: hsla(0, 0%, 20%, 0.9);
+                  color: #fff;
+                  content: attr(data-tooltip);
+                  font-size: 14px;
+                  line-height: 1.2;
+                }
+
+                /* Directions */
+
+                /* Top (default) */
+                [data-tooltip]:before,
+                [data-tooltip]:after,
+                .tooltip:before,
+                .tooltip:after,
+                .tooltip-top:before,
+                .tooltip-top:after {
+                  bottom: 100%;
+                  left: 50%;
+                }
+
+                [data-tooltip]:before,
+                .tooltip:before,
+                .tooltip-top:before {
+                  margin-left: -6px;
+                  margin-bottom: -12px;
+                  border-top-color: #000;
+                  border-top-color: hsla(0, 0%, 20%, 0.9);
+                }
+
+                /* Horizontally align top/bottom tooltips */
+                [data-tooltip]:after,
+                .tooltip:after,
+                .tooltip-top:after {
+                  margin-left: -80px;
+                }
+
+                [data-tooltip]:hover:before,
+                [data-tooltip]:hover:after,
+                [data-tooltip]:focus:before,
+                [data-tooltip]:focus:after,
+                .tooltip:hover:before,
+                .tooltip:hover:after,
+                .tooltip:focus:before,
+                .tooltip:focus:after,
+                .tooltip-top:hover:before,
+                .tooltip-top:hover:after,
+                .tooltip-top:focus:before,
+                .tooltip-top:focus:after {
+                  -webkit-transform: translateY(-12px);
+                  -moz-transform:    translateY(-12px);
+                  transform:         translateY(-12px); 
+                }
+
+                /* Left */
+                .tooltip-left:before,
+                .tooltip-left:after {
+                  right: 100%;
+                  bottom: 50%;
+                  left: auto;
+                }
+
+                .tooltip-left:before {
+                  margin-left: 0;
+                  margin-right: -12px;
+                  margin-bottom: 0;
+                  border-top-color: transparent;
+                  border-left-color: #000;
+                  border-left-color: hsla(0, 0%, 20%, 0.9);
+                }
+
+                .tooltip-left:hover:before,
+                .tooltip-left:hover:after,
+                .tooltip-left:focus:before,
+                .tooltip-left:focus:after {
+                  -webkit-transform: translateX(-12px);
+                  -moz-transform:    translateX(-12px);
+                  transform:         translateX(-12px); 
+                }
+
+                /* Bottom */
+                .tooltip-bottom:before,
+                .tooltip-bottom:after {
+                  top: 100%;
+                  bottom: auto;
+                  left: 50%;
+                }
+
+                .tooltip-bottom:before {
+                  margin-top: -12px;
+                  margin-bottom: 0;
+                  border-top-color: transparent;
+                  border-bottom-color: #000;
+                  border-bottom-color: hsla(0, 0%, 20%, 0.9);
+                }
+
+                .tooltip-bottom:hover:before,
+                .tooltip-bottom:hover:after,
+                .tooltip-bottom:focus:before,
+                .tooltip-bottom:focus:after {
+                  -webkit-transform: translateY(12px);
+                  -moz-transform:    translateY(12px);
+                  transform:         translateY(12px); 
+                }
+
+                /* Right */
+                .tooltip-right:before,
+                .tooltip-right:after {
+                  bottom: 50%;
+                  left: 100%;
+                }
+
+                .tooltip-right:before {
+                  margin-bottom: 0;
+                  margin-left: -12px;
+                  border-top-color: transparent;
+                  border-right-color: #000;
+                  border-right-color: hsla(0, 0%, 20%, 0.9);
+                }
+
+                .tooltip-right:hover:before,
+                .tooltip-right:hover:after,
+                .tooltip-right:focus:before,
+                .tooltip-right:focus:after {
+                  -webkit-transform: translateX(12px);
+                  -moz-transform:    translateX(12px);
+                  transform:         translateX(12px); 
+                }
+
+                /* Move directional arrows down a bit for left/right tooltips */
+                .tooltip-left:before,
+                .tooltip-right:before {
+                  top: 3px;
+                }
+
+                /* Vertically center tooltip content for left/right tooltips */
+                .tooltip-left:after,
+                .tooltip-right:after {
+                  margin-left: 0;
+                  margin-bottom: -16px;
+                }
+
+
+                #buttonInputText {
+                    outline:none;
+                    border: 0px;
+                    /*border: 1px solid rgba(0, 0, 0, 0.2);*/
+                    border-radius: 8px;
+                    padding: 3px
+                    font-size: 14px;
+                    font-family: 'Roboto';
+                    font-weight: 100;
+                    display:inline-block;
+                    /*width:30%;*/
+                    width: 95%;
+                }
+
+                #buttonInputText:focus {
+                    outline: none;
+                    border: 1px solid #16a085;
+                }
+
+                #search {
+                    width:30%;
+                    outline:none;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    border-radius: 13px;
+                    padding: 8px 15px 8px 15px;
+                    font-size: 17px;
+                    font-family: 'Roboto';
+                    font-weight: 100;
+                    display:inline-block;
+
+                }
+
+
+                #search:focus {
+                    outline:none;
+                    border: 1px solid #16a085;
+                }
+
+                .emoji {
+                    width: 20px;
+                    height: 20px;
+                    display: inline-block;
+                    margin-top: -4px;
+                    /*margin-bottom: -0.25em;*/
+                    vertical-align: middle;
+                }
+
+                canvas{
+                    display:block;
+                    vertical-align:bottom;
+                }
+
+                @-webkit-keyframes bounceInDown {
+                    0% {
+                        opacity: 0;
+                        -webkit-transform: translateY(-2000px);
+                    }
+                    
+                    60% {
+                        opacity: 1;
+                        -webkit-transform: translateY(30px);
+                    }
+                    
+                    80% {
+                        -webkit-transform: translateY(-10px);
+                    }
+                    
+                    100% {
+                        -webkit-transform: translateY(0);
+                    }
+                }
+
+                @-moz-keyframes bounceInDown {
+                    0% {
+                        opacity: 0;
+                        -moz-transform: translateY(-2000px);
+                    }
+                    
+                    60% {
+                        opacity: 1;
+                        -moz-transform: translateY(30px);
+                    }
+                    
+                    80% {
+                        -moz-transform: translateY(-10px);
+                    }
+                    
+                    100% {
+                        -moz-transform: translateY(0);
+                    }
+                }
+
+                @-o-keyframes bounceInDown {
+                    0% {
+                        opacity: 0;
+                        -o-transform: translateY(-2000px);
+                    }
+                    
+                    60% {
+                        opacity: 1;
+                        -o-transform: translateY(30px);
+                    }
+                    
+                    80% {
+                        -o-transform: translateY(-10px);
+                    }
+                    
+                    100% {
+                        -o-transform: translateY(0);
+                    }
+                }
+
+                @keyframes bounceInDown {
+                    0% {
+                        opacity: 0;
+                        transform: translateY(-2000px);
+                    }
+                    
+                    60% {
+                        opacity: 1;
+                        transform: translateY(30px);
+                    }
+                    
+                    80% {
+                        transform: translateY(-10px);
+                    }
+                    
+                    100% {
+                        transform: translateY(0);
+                    }
+                }
+
+                .bounceInDown {
+                    -webkit-animation-name: bounceInDown;
+                    -moz-animation-name: bounceInDown;
+                    -o-animation-name: bounceInDown;
+                    animation-name: bounceInDown;
+                }
+
+                .animated {
+                    -webkit-animation-fill-mode: both;
+                    -moz-animation-fill-mode: both;
+                    -ms-animation-fill-mode: both;
+                    -o-animation-fill-mode: both;
+                    animation-fill-mode: both;
+                    -webkit-animation-duration: 1s;
+                    -moz-animation-duration: 1s;
+                    -ms-animation-duration: 1s;
+                    -o-animation-duration: 1s;
+                    animation-duration: 1s;
+                }
+
+                .animated.hinge {
+                    -webkit-animation-duration: 2s;
+                    -moz-animation-duration: 2s;
+                    -ms-animation-duration: 2s;
+                    -o-animation-duration: 2s;
+                    animation-duration: 2s;
+                }
+
+                .chat_id_name {
+                    color: rgb(255, 195, 0);
+                }
+
+
+                ::-webkit-scrollbar {
+                    width: 1px;
+                    background-color:transparent;
+                }
+                 
+                ::-webkit-scrollbar-track {
+                    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+                    border-radius: 10px;
+
+                }
+                 
+                ::-webkit-scrollbar-thumb {
+                    border-radius: 10px;
+                    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+                    background-color: rgb(255, 195, 0); 
+                }
