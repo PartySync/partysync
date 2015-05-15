@@ -257,7 +257,7 @@
         #queue {
             /*border: 1px solid black;*/
             /*width: 48%;*/
-            background-color:rgb(18, 19, 20);
+            background-color:rgba(18,19,20,0.45);
             height: 100%;
             position:absolute;
             top:50px;
@@ -273,7 +273,7 @@
         #chatBox {
             /*border: 1px solid black;*/
             /*width: 48%;*/
-            background-color:rgb(18, 19, 20);
+            background-color:rgba(18,19,20,0.45);
             height: 100%;
             position:absolute;
             right:1px;
