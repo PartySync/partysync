@@ -70,6 +70,9 @@ function isHTML(str) {
 
 var player;
 
+var isSyncing = false;
+
+
 function onYouTubePlayerAPIReady() {
     player = new YT.Player('mainVideo', {
       height: '420',
@@ -137,13 +140,13 @@ function onYouTubePlayerAPIReady() {
                 
               });
   
-            } else if (event.data === 1) { // IF VIDEO IS PLAYING
+            } else if (event.data === 1 && isSyncing === false) { // IF VIDEO IS PLAYING
               db_pause.set('playing');
               document.getElementById("pausePlay").src = "img/pause-icon.png";
 
 
 
-            } else if (event.data === 2) { // IF VIDEO IS PAUSED
+            } else if (event.data === 2 && isSyncing === false) { // IF VIDEO IS PAUSED
               db_pause.set('paused');
               document.getElementById("pausePlay").src = "img/play-icon.png";
 
@@ -202,7 +205,7 @@ function getFirstObjectInQueue(typeVal) {
     
     db_queue.once('value', function (snapshot) {
       for (var keys in snapshot.val()) {
-          console.log(keys);
+          // console.log(keys);
 
           return keys;
       }
@@ -288,9 +291,9 @@ function rewind_back() {
     // console.log(snapshotData.val());
     for (var keyVals in snapshotData.val()) {
           var tmp_hist = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/history/' + keyVals);
-          console.log(tmp_hist.key());
+          // console.log(tmp_hist.key());
 
-          console.log(snapshotData.val()[keyVals]);
+          // console.log(snapshotData.val()[keyVals]);
 
           // prepend the object
           db_queue.limitToFirst(1).once('value', function (snap) { 
@@ -298,14 +301,14 @@ function rewind_back() {
             if (snap.val() !== null) {
               snap.forEach(function (s) { 
 
-                console.log(s.getPriority());
+                // console.log(s.getPriority());
                
                 db_queue.push({'.value': snapshotData.val()[keyVals], '.priority': s.getPriority()-1});
 
               });
 
             } else {
-                console.log("YOOOOOOO I JUST SET SOMETHING'S TO PRIORITY 1");
+                // console.log("YOOOOOOO I JUST SET SOMETHING'S TO PRIORITY 1");
                 db_queue.push({'.value': snapshotData.val()[keyVals], '.priority': 1});
 
             }
@@ -398,50 +401,6 @@ function displayQueue() {
 
   });
 }
-
-/* EXPERIMENTAL QUEUE */
-
-// var queuePriorities = [];
-// db_queue.on('child_added', function (snapData) {
-//   // alert(snapData.getPriority());
-  
-
-//   $.getJSON('http://gdata.youtube.com/feeds/api/videos/'+snapData.val()+'?v=2&alt=jsonc', function (data) {
-  
-//       var songTitle = data.data.title;
-//       var views = numeral(data.data.viewCount).format('0,0') + " views";
-//       $.get('https://gdata.youtube.com/feeds/api/users/'+data.data.uploader+'?v=2.1', function (xmlData) {
-      
-//           $xml = $(xmlData),
-//           $title = $xml.find("title");
-      
-//           var artist = $title.text()
-//           if (snapData.getPriority() < queuePriorities[0]) {
-//             $("#queueArea").prepend('<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>');
-
-//           } else {
-//             $("#queueArea").append('<div class="queueCard"><b>'+songTitle+'</b><br />'+views+'<br/></div>');
-
-//           }
-          
-
-
-
-//           queuePriorities.push(snapData.getPriority());
-//       });
-//     });
-  
-// });
-
-// db_queue.on('child_removed', function() {
-
-//   var card = document.getElementsByClassName("queueCard")[0];
-//   card.parentNode.removeChild(card);
-//   // document.removeChild(document.querySelector("#"))
-// });
-
-
-
 
 
 
@@ -545,7 +504,7 @@ $("#buttonInputText").focus(function() {
 });
 
 function pushVideoToQueue(id) {
-  console.log(id);
+  // console.log(id);
   db_queue.limitToLast(1).once('value', function (sVals) {
 
     db_queue.push({'.value': id, '.priority': sVals.getPriority() + 1});
@@ -588,6 +547,13 @@ db_numUsers.on('value', function(snapshot) {
     userRef.set('online');
   
 });
+
+
+
+
+
+
+
     
 
 db_numUsers.on('value', function (sNum) {
@@ -673,15 +639,51 @@ setInterval(jump, 1200);
 
 setInterval(function() {
   updateVideoInfo(extractParameters(player.getVideoUrl())['v']);
-  if (user_id == 1) {
+  if (user_id == num_users) { // this allows only time value to get added, as all of the players are at slightly different spots
     db_time.set(Math.round(player.getCurrentTime()*100)/100);
   }
 
-  
- 
+}, 500);
 
-}, 750);
- 
+
+
+// // setTimeout(function() {
+//    db_time.on('value', function (t_snapshot) {
+//       // err;
+
+//       if (user_id != num_users) {
+//           var diff = player.getCurrentTime() - t_snapshot.val();
+
+//           if (diff < 0) {
+//             diff *= -1;
+//           }
+
+//           console.log(diff);
+
+//           if (diff > 0.5) { // basically, if the video player is not in sync, this makes it correct itself by pausing itself until its synced with everyone
+//             // console.log("SYNCING THE PLAYER TO OTHER CLIENTS!");
+
+
+//             isSyncing = true;
+
+//             player.pauseVideo(); // pause the video, but don't cause everyone elses client to pause as well
+
+//             setTimeout(function() {
+//               player.playVideo();
+//               isSyncing = false;
+//             }, diff);
+
+//           }
+
+//       }
+
+      
+
+//    });
+
+// }, 5000)
+
+
 
 
 
