@@ -23,7 +23,9 @@
 .phone {
   position: relative;
   max-width: 80%;
-  margin: 3rem auto -12rem;
+  margin: 15rem auto -12rem;
+  /*opacity: 0.8;*/
+  display:none;
 }
 .phone + .phone {
   display: none;
@@ -82,6 +84,7 @@
     right: 3rem;
     max-height: 362px;
     z-index: 3;
+
   }
   .phone + .phone {
     top: -6rem;
@@ -119,6 +122,7 @@
     top: -14rem;
     right: 5rem;
     max-height: 510px;
+    display:inline-block;
   }
   .phone + .phone {
     top: -12rem;

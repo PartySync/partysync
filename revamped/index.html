@@ -96,13 +96,160 @@
 
      /*border: 0px 0px 1px 0px solid white;*/
   }
+
+  video { display: block; }
+
+
+  video#bgvid {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url(polina.jpg) no-repeat;
+    background-size: cover;
+    -webkit-filter: brightness(50%);
+    filter: brightness(50%);
+  }
+
+
+      /*
+    Animate.css - http://daneden.me/animate
+    LICENSED UNDER THE  MIT LICENSE (MIT)
+
+    Copyright (c) 2012 Dan Eden
+    */
+    .animated {
+        -webkit-animation-fill-mode: both;
+        -moz-animation-fill-mode: both;
+        -ms-animation-fill-mode: both;
+        -o-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-duration: 1s;
+        -moz-animation-duration: 1s;
+        -ms-animation-duration: 1s;
+        -o-animation-duration: 1s;
+        animation-duration: 1s;
+    }
+
+    .animated.hinge {
+        -webkit-animation-duration: 2s;
+        -moz-animation-duration: 2s;
+        -ms-animation-duration: 2s;
+        -o-animation-duration: 2s;
+        animation-duration: 2s;
+    }
+
+    @-webkit-keyframes bounceInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateY(-2000px);
+        }
+        
+        60% {
+            opacity: 1;
+            -webkit-transform: translateY(30px);
+        }
+        
+        80% {
+            -webkit-transform: translateY(-10px);
+        }
+        
+        100% {
+            -webkit-transform: translateY(0);
+        }
+    }
+
+    @-moz-keyframes bounceInDown {
+        0% {
+            opacity: 0;
+            -moz-transform: translateY(-2000px);
+        }
+        
+        60% {
+            opacity: 1;
+            -moz-transform: translateY(30px);
+        }
+        
+        80% {
+            -moz-transform: translateY(-10px);
+        }
+        
+        100% {
+            -moz-transform: translateY(0);
+        }
+    }
+
+    @-o-keyframes bounceInDown {
+        0% {
+            opacity: 0;
+            -o-transform: translateY(-2000px);
+        }
+        
+        60% {
+            opacity: 1;
+            -o-transform: translateY(30px);
+        }
+        
+        80% {
+            -o-transform: translateY(-10px);
+        }
+        
+        100% {
+            -o-transform: translateY(0);
+        }
+    }
+
+    @keyframes bounceInDown {
+        0% {
+            opacity: 0;
+            transform: translateY(-2000px);
+        }
+        
+        60% {
+            opacity: 1;
+            transform: translateY(30px);
+        }
+        
+        80% {
+            transform: translateY(-10px);
+        }
+        
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    .bounceInDown {
+        -webkit-animation-name: bounceInDown;
+        -moz-animation-name: bounceInDown;
+        -o-animation-name: bounceInDown;
+        animation-name: bounceInDown;
+    }
+
   </style>
 
 </head>
 <body>
 
+  <!--[if lt IE 9]>
+  <script>
+  document.createElement('video');
+  </script>
+  <![endif]-->
+
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <video autoplay loop poster="../img/bg-loading.png" id="bgvid">
+  <!-- <source src="polina.webm" type="video/webm"> -->
+  <source src="../img/bg.mp4" type="video/mp4">
+  </video>
+
 
   <div class="section hero">
     <div class="container">
@@ -111,66 +258,22 @@
         <div class="one-half column">
         <h1 class="usRoom"><img src="../images/play-video.png" style="height: 45px; margin-top: -5px; display:inline-block;vertical-align:middle;"/>&nbsp; PartySync</h1>
           <h1>Watch videos together.</h1>
-          <h4 class="hero-heading">The ultimate video watching experience.</h4>
+          <h4 class="hero-heading">The worldwide video watching experience</h4>
 
            <span style="font-size: 35px; color:rgb(255, 195, 0); font-family:'Roboto Condensed'; font-weight:700; text-transform: uppercase; font-style:italic; position: relative; left: 8px">#</span><input id="joinRoom" placeholder="join Room" type="text" />
           <!-- <a class="button button-primary" href="http://getskeleton.com">Try Skeleton</a> -->
         </div>
-        <div class="one-half column phones">
+        <div class="one-half column">
           
           
           <!-- <img src="images/connected-banner.png"> -->
-          <img class="phone" src="../images/iphone-play.png">
-          <img class="phone" src="../images/iphone-play.png">
+          <img class="phone animated bounceInDown" src="../img/earth-icon.png">
+          <!-- <img class="phone" src="../images/iphone-play.png"> -->
         </div>
       </div>
     </div>
   </div>
 
-<!--   <div class="section values">
-    <div class="container">
-      <div class="row">
-        <div class="one-third column value">
-          <h2 class="value-multiplier">67%</h2>
-          <h5 class="value-heading">Purchase Increase</h5>
-          <p class="value-description">Percentage of users more likely to purchase on mobile friendly site.</p>
-        </div>
-        <div class="one-third column value">
-          <h2 class="value-multiplier">90%</h2>
-          <h5 class="value-heading">Multi-device Users</h5>
-          <p class="value-description">Most of the world accesses the internet on multiple devices.</p>
-        </div>
-        <div class="one-third column value">
-          <h2 class="value-multiplier">100%</h2>
-          <h5 class="value-heading">Sad Users</h5>
-          <p class="value-description">Percentage of users that are frustrated with page load times.</p>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
- <!--  <div class="section get-help">
-    <div class="container">
-      <h3 class="section-heading">Need help getting started?</h3>
-      <p class="section-description">Skeleton is an amazingly easy place to start with responsive development. If you want to learn more, just visit the documentation!</p>
-      <a class="button button-primary" href="http://getskeleton.com">View Skeleton Docs</a>
-    </div>
-  </div>
-
-  <div class="section categories">
-    <div class="container">
-      <h3 class="section-heading">Responsive Images</h3>
-      <p class="section-description">Skeleton images sit easily in grid with .u-max-full-width class. I suggest exploring solution to serving different images based on device size.</p>
-      <div class="row">
-        <div class="one-half column category">
-          <img class="u-max-full-width" src="images/placeholder.png">
-        </div>
-        <div class="one-half column category">
-          <img class="u-max-full-width" src="images/placeholder.png">
-        </div>
-      </div>
-    </div>
-  </div> -->
 
 
 
