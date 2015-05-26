@@ -449,11 +449,21 @@ $("#chatBoxInput").focus(function() {
           // db_chat.push(chat_text);
           // commands
           if (chat_text.substring(0, 5) == "/name") {
+            var old_name = chat_name;
+
+            if (typeof chat_name == "undefined") {
+              old_name = "A" + user_id;
+            }
+
             chat_name = chat_text.substring(6, chat_text.length);
+
+            db_chat.push("<b class=\"chat_announce\">[<strong>"+old_name+"</strong> changed their name to <strong>" + chat_name + "</strong>]</b><br />");
+
+            
           } else if (typeof chat_name !== "undefined" && /\S/.test(chat_name)) {
-            db_chat.push("<b class=\"chat_id_name\">"+chat_name+": </b>" + chat_text + "<br />");
+            db_chat.push("[<b class=\"chat_id_name\">"+chat_name+"</b>] " + chat_text + "<br />");
           } else {
-            db_chat.push("<b class=\"chat_id_name\">A"+user_id+": </b>" + chat_text + "<br />");
+            db_chat.push("[<b class=\"chat_id_name\">A"+user_id+"</b>] " + chat_text + "<br />");
           }
           
           // db_chat.push("<b>A"+user_id+": </b>" + chat_text + "<br />");
