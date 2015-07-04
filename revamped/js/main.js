@@ -14,6 +14,10 @@
     room = decodeURI(urlChunks.substring(1, urlChunks.length).toUpperCase());
  }
 
+$.getJSON("http://www.partysyncwith.me/db-cEk3A5u9V7jx5A7GelF5", function (fbURLGET) {
+  console.log(fbURLGET.firebase_url);
+});
+
 var db = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase());
 var db_queue = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/queue');
 var db_history = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/history');

@@ -18,8 +18,44 @@ var client = Keen.configure({
 
 var Firebase = require('firebase');
 
+// access to the command line
+// var exec = require('child_process').exec;
+
+// ability to invoke ngrok
+var ngrok = require('ngrok');
+ 
 
 
+// self hosted firebase db server
+var FirebaseServer = require('firebase-server');
+new FirebaseServer(5000, 'partysync.firebase.localhost', {
+  /* You can put your initial data model here, or just leave it empty */
+
+
+
+});
+
+
+var secure_firebaseDB_tunnel = "";
+
+// make the firebase url public
+ngrok.connect(5000, function (err, url) {
+    // https://757c1652.ngrok.com -> 127.0.0.1:8080
+    console.log("Firebase DB is (securely) hosted at " + url);  
+
+    secure_firebaseDB_tunnel = url;
+});
+
+
+
+
+
+
+
+
+
+
+// main PartySync server stuff
 var port = 8080;
 
 // var globalDB = new Firebase("https://tap-78901.firebaseio.com/");
@@ -38,6 +74,10 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+
+app.get('/db-cEk3A5u9V7jx5A7GelF5', function (req, res) {
+	res.send({"firebase_url": secure_firebaseDB_tunnel});
+});
 
 
 app.get('/:party_name', function (req, res) {
