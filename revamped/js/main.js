@@ -15,15 +15,14 @@
  }
 
 $.getJSON("http://www.partysyncwith.me/db-cEk3A5u9V7jx5A7GelF5", function (fbURLGET) {
-  
 
-var db = new Firebase(fbURLGET.url +'/' + room.toUpperCase());
-var db_queue = new Firebase(fbURLGET.url +'/' + room.toUpperCase() + '/queue');
-var db_history = new Firebase(fbURLGET.url +'/' + room.toUpperCase() + '/history');
-var db_chat = new Firebase(fbURLGET.url +'/' + room.toUpperCase() + '/chat');
-var db_pause = new Firebase(fbURLGET.url +'/' + room.toUpperCase() + '/paused');
-var db_time = new Firebase(fbURLGET.url +'/'+ room.toUpperCase() + '/time');
-var db_numUsers = new Firebase(fbURLGET.url +'/'+ room.toUpperCase() + '/connections');
+var db = new Firebase(fbURLGET.firebase_url +'/' + room.toUpperCase());
+var db_queue = new Firebase(fbURLGET.firebase_url +'/' + room.toUpperCase() + '/queue');
+var db_history = new Firebase(fbURLGET.firebase_url +'/' + room.toUpperCase() + '/history');
+var db_chat = new Firebase(fbURLGET.firebase_url +'/' + room.toUpperCase() + '/chat');
+var db_pause = new Firebase(fbURLGET.firebase_url +'/' + room.toUpperCase() + '/paused');
+var db_time = new Firebase(fbURLGET.firebase_url +'/'+ room.toUpperCase() + '/time');
+var db_numUsers = new Firebase(fbURLGET.firebase_url +'/'+ room.toUpperCase() + '/connections');
 
  $(".tapRoom").text("#"+room);
  $("title").text("#"+room);
