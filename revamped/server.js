@@ -83,6 +83,7 @@ app.get('/', function (req, res) {
 });
 
 
+// method of grabbing the firebase url
 app.get('/db-cEk3A5u9V7jx5A7GelF5', function (req, res) {
 	res.send({"firebase_url": secure_firebaseDB_tunnel});
 });

@@ -15,29 +15,19 @@
  }
 
 $.getJSON("http://www.partysyncwith.me/db-cEk3A5u9V7jx5A7GelF5", function (fbURLGET) {
-  console.log(fbURLGET.firebase_url);
-});
+  
 
-var db = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase());
-var db_queue = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/queue');
-var db_history = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/history');
-var db_chat = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/chat');
-var db_pause = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/paused');
-var db_time = new Firebase('https://youparty.firebaseio.com/'+ room.toUpperCase() + '/time');
-var db_numUsers = new Firebase('https://youparty.firebaseio.com/'+ room.toUpperCase() + '/connections');
+var db = new Firebase(fbURLGET.url +'/' + room.toUpperCase());
+var db_queue = new Firebase(fbURLGET.url +'/' + room.toUpperCase() + '/queue');
+var db_history = new Firebase(fbURLGET.url +'/' + room.toUpperCase() + '/history');
+var db_chat = new Firebase(fbURLGET.url +'/' + room.toUpperCase() + '/chat');
+var db_pause = new Firebase(fbURLGET.url +'/' + room.toUpperCase() + '/paused');
+var db_time = new Firebase(fbURLGET.url +'/'+ room.toUpperCase() + '/time');
+var db_numUsers = new Firebase(fbURLGET.url +'/'+ room.toUpperCase() + '/connections');
 
  $(".tapRoom").text("#"+room);
  $("title").text("#"+room);
 
-
-// for (var i =0; i < 10; i++) {
-//   if ((i % 2) == 0) {
-//       db_queue.push({'.value':'3Rqcg7BJwJM', '.priority': i});
-//   } else {
-//       db_queue.push({'.value':'9bZkp7q19f0', '.priority': i});
-//   }
-  
-// }
 
 
 // Extra code to remove any HTML or JavaScript a user might try to embed within their chat messages
@@ -92,12 +82,8 @@ function onYouTubePlayerAPIReady() {
 
             // WHEN VIDEO ENDS -- THIS IS WHAT YOU SHOULD
             if (event.data === 0) {
-              // console.log("Video ended");
-
-              // if (user_id == 1) {
-                // console.log("YAY");
+            
                 db_history.push({'.value':extractParameters(player.getVideoUrl())['v'], '.priority':null});  
-              // }
               
 
               db_queue.once('value', function (snapshot) {
@@ -263,12 +249,6 @@ function skip() {
 
               });
 
-              // db_queue.once('value', function (sCHECKS) {
-              //   if (sCHECKS.val() != null) {
-                    
-              //   } 
-                
-              // });
 
 
 
@@ -295,10 +275,7 @@ function rewind_back() {
     // console.log(snapshotData.val());
     for (var keyVals in snapshotData.val()) {
           var tmp_hist = new Firebase('https://youparty.firebaseio.com/' + room.toUpperCase() + '/history/' + keyVals);
-          // console.log(tmp_hist.key());
-
-          // console.log(snapshotData.val()[keyVals]);
-
+         
           // prepend the object
           db_queue.limitToFirst(1).once('value', function (snap) { 
             // alert("YO");
@@ -374,7 +351,6 @@ function updateVideoInfo(id) {
 
 
 
-// var htmlD = " ";
 // You need synchronous ajax calls for this to work.... unforunately, I don't think it
 function displayQueue() {
   var htmlD = " ";
@@ -445,12 +421,11 @@ $("#chatBoxInput").focus(function() {
           chat_text = jQuery(stripScripts(chat_text)).text();
         }
 
-        // console.log(chat_text.substring(0, 5));
         
 
 
         if (chat_text.length > 0) {
-          // db_chat.push(chat_text);
+     
           // commands
           if (chat_text.substring(0, 5) == "/name") {
             var old_name = chat_name;
@@ -661,42 +636,6 @@ setInterval(function() {
 
 
 
-// // setTimeout(function() {
-//    db_time.on('value', function (t_snapshot) {
-//       // err;
-
-//       if (user_id != num_users) {
-//           var diff = player.getCurrentTime() - t_snapshot.val();
-
-//           if (diff < 0) {
-//             diff *= -1;
-//           }
-
-//           console.log(diff);
-
-//           if (diff > 0.5) { // basically, if the video player is not in sync, this makes it correct itself by pausing itself until its synced with everyone
-//             // console.log("SYNCING THE PLAYER TO OTHER CLIENTS!");
-
-
-//             isSyncing = true;
-
-//             player.pauseVideo(); // pause the video, but don't cause everyone elses client to pause as well
-
-//             setTimeout(function() {
-//               player.playVideo();
-//               isSyncing = false;
-//             }, diff);
-
-//           }
-
-//       }
-
-      
-
-//    });
-
-// }, 5000)
-
 
 
 
@@ -710,6 +649,6 @@ setInterval(function() {
 
 
 
-
+}); // end Firebase GET URL
   
 
