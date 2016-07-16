@@ -2,19 +2,19 @@
 	(c) 2015 Gautam Mittal
 */
 
-var dotenv = require('dotenv');
-dotenv.load(); // load environment variables
+//var dotenv = require('dotenv');
+//dotenv.load(); // load environment variables
 
 var express = require('express');
 var app = express();
 
 var request = require('request');
 
-var Keen = require("keen.io");
-var client = Keen.configure({
-    projectId: process.env.KEEN_PROJECT_ID,
-    writeKey: process.env.KEEN_WRITE_KEY
-});
+//var Keen = require("keen.io");
+//var client = Keen.configure({
+//  projectId: process.env.KEEN_PROJECT_ID,
+//  writeKey: process.env.KEEN_WRITE_KEY
+//});
 
 var Firebase = require('firebase');
 
@@ -22,7 +22,7 @@ var Firebase = require('firebase');
 // var exec = require('child_process').exec;
 
 // ability to invoke ngrok
-var ngrok = require('ngrok');
+//var ngrok = require('ngrok');
  
 
 
@@ -70,7 +70,7 @@ app.get('/:party_name', function (req, res) {
 
 	console.log(req.param("party_name").toLowerCase());
 	var id = req.param("party_name").toLowerCase();
-
+	/*
 	request('http://ip-api.com/json/'+ip, function (err, response, body) {
 		var ipData = JSON.parse(body);
 		var location = ipData.city + ", " + ipData.region + ", " + ipData.country +" "+ipData.zip;
@@ -85,7 +85,7 @@ app.get('/:party_name', function (req, res) {
 		});
 	});
 
-
+	*/
 
 
 	  res.sendFile(__dirname + '/tap.html');
