@@ -16,7 +16,7 @@
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
-  
+
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -153,16 +153,16 @@
             opacity: 0;
             -webkit-transform: translateY(-2000px);
         }
-        
+
         60% {
             opacity: 1;
             -webkit-transform: translateY(30px);
         }
-        
+
         80% {
             -webkit-transform: translateY(-10px);
         }
-        
+
         100% {
             -webkit-transform: translateY(0);
         }
@@ -173,16 +173,16 @@
             opacity: 0;
             -moz-transform: translateY(-2000px);
         }
-        
+
         60% {
             opacity: 1;
             -moz-transform: translateY(30px);
         }
-        
+
         80% {
             -moz-transform: translateY(-10px);
         }
-        
+
         100% {
             -moz-transform: translateY(0);
         }
@@ -193,16 +193,16 @@
             opacity: 0;
             -o-transform: translateY(-2000px);
         }
-        
+
         60% {
             opacity: 1;
             -o-transform: translateY(30px);
         }
-        
+
         80% {
             -o-transform: translateY(-10px);
         }
-        
+
         100% {
             -o-transform: translateY(0);
         }
@@ -213,16 +213,16 @@
             opacity: 0;
             transform: translateY(-2000px);
         }
-        
+
         60% {
             opacity: 1;
             transform: translateY(30px);
         }
-        
+
         80% {
             transform: translateY(-10px);
         }
-        
+
         100% {
             transform: translateY(0);
         }
@@ -262,13 +262,13 @@
         <h1 class="usRoom"><img src="../images/play-video.png" style="height: 45px; margin-top: -5px; display:inline-block;vertical-align:middle;"/>&nbsp; PartySync</h1>
           <h1>Watch videos together.</h1>
           <h4 class="hero-heading">The worldwide video watching experience</h4>
-<!-- 
+<!--
            <span style="font-size: 35px; color:rgb(255, 195, 0); font-family:'Roboto Condensed'; font-weight:700; text-transform: uppercase; font-style:italic; position: relative; left: 8px">#</span> --><input id="joinRoom" placeholder="join Room" type="text" />
           <!-- <a class="button button-primary" href="http://getskeleton.com">Try Skeleton</a> -->
         </div>
         <div class="one-half column">
-          
-          
+
+
           <!-- <img src="images/connected-banner.png"> -->
           <img class="phone animated bounceInDown" src="../img/earth-icon.png">
           <!-- <img class="phone" src="../images/iphone-play.png"> -->
@@ -285,7 +285,7 @@
       if (evt.which == 13 && $("#joinRoom").val().length != 0) {
         var room = $("#joinRoom").val();
         document.getElementById("joinRoom").value = "";
-        window.location = "http://www.partysyncwith.me/"+room;
+        window.location = "/"+room;
       }
     });
   </script>
